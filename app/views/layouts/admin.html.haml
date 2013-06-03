@@ -1,0 +1,45 @@
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
+    %title= content_for?(:title) ? yield(:title) : "DAI Admin"
+    %meta{:content => "", :name => "description"}
+    %meta{:content => "", :name => "author"}
+    = stylesheet_link_tag "admin", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    = yield(:head)
+  %body
+    %header.navbar.navbar-inverse{:style=>"margin-bottom:0"}
+      %nav.navbar-inner
+        %a.brand{:href=>"#"}
+          = image_tag "logo_ad.png"
+        %ul.nav.pull-right
+          %li#fat-menu.dropdown
+            %a.logout{:href=>"/logout"}
+              %span.navbar_icon
+        .container
+    .hidden-phone#sidebar-nav
+      %ul#dashboard-menu
+        %li{:class=>("active" if (params[:controller] == "admin"))}
+          - if (params[:controller] == "admin")
+            .pointer
+              .arrow
+              .arrow_border
+          %a.tab2{:href=>"/admin"}
+            %i{:class=>"sidebar-home"}
+            %span Главная
+        - current_user.modules.each do |modul|
+          %li{:class=>("active" if (params[:controller] =~ /#{modul.action}/))}
+            - if (params[:controller] =~ /#{modul.action}/)
+              .pointer
+                .arrow
+                .arrow_border
+            %a.tab2{:href=>"/admin/#{modul.action}"}
+              %i{:class=>modul.ico_cls}
+              %span=modul.name
+    .content{:role => "main"}
+      .container-fluid
+        = yield
+        

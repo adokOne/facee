@@ -1,0 +1,17 @@
+app:
+  comments_limit: 20
+  users_limit: 10
+  photos_limit: 5
+  com_lim: 2
+  like_lim: 2
+  image_dir: /photos/
+  image_name: medium
+  image_ext: .jpg
+  photo_sizes:
+    width: 200
+    height: 200
+
+facebook:
+  url:
+    graph: https://graph.facebook.com
+

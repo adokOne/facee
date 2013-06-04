@@ -1,0 +1,68 @@
+
+
+1. Список юзеров  
+  curl -F "fb_id=1768664556"  facee.local/api/user/list
+  curl -F "fb_id=andrej104"  facee.local/api/user/list
+
+2.Инфа по самому себе
+   curl -F "fb_id=1768664556"  facee.local/api/user/info
+   
+   Полная инфа по самому себе
+   curl -F "fb_id=1768664556" -F "full=1" facee.local/api/user/info
+
+3.Инфа по конкретному юзеру
+   curl -F "fb_id=1768664556" -F "user_id=2"  facee.local/api/user/user_info
+   
+   Полная инфа по конкретному юзеру
+   curl -F "fb_id=1768664556" -F "user_id=2" -F "full=1" facee.local/api/user/user_info
+
+4.Список своих фоток
+  curl -F "fb_id=1768664556"   facee.local/api/pictures/list
+
+  Подгрузка списка
+  curl -F "fb_id=1768664556"  -F "page=2"  facee.local/api/pictures/list
+
+  Полная инфа по фоткам
+  curl -F "fb_id=1768664556"  -F "full=1" facee.local/api/pictures/list
+
+
+5.Загрузка фото
+  curl -F "fb_id=1768664556" -F "photo=@11.jpg"  facee.local/api/pictures/post
+
+6.Like или UnLike фотки
+  curl -F "fb_id=1768664556"  -F "photo_id=1" facee.local/api/pictures/like
+
+7.Список комментарией к фотке
+  curl -F "fb_id=1768664556"  -F "photo_id=1" facee.local/api/commet/list
+  Подгрузка списка
+  curl -F "fb_id=1768664556"  -F "photo_id=1" -F "page=2" facee.local/api/commet/list
+
+8.Постинг коментария
+  curl -F "fb_id=1768664556"  -F "photo_id=1" -F "text=Tra-la-la" facee.local/api/commet/post
+
+9.Список друзей юзера
+  curl -F "fb_id=1768664556"  facee.local/api/user/friends
+
+10.Список подписчиков юзера
+  curl -F "fb_id=1768664556"  facee.local/api/user/followers
+
+11.Список подписок  юзера
+  curl -F "fb_id=1768664556"  facee.local/api/user/following
+
+12.Добавление в друзья
+  curl -F "fb_id=1768664556"  -F "user_id=2" facee.local/api/user/friend
+
+13.Удаление из друзей
+  curl -F "fb_id=1768664556"  -F "user_id=2" facee.local/api/user/unfriend
+
+14.Подписка
+  curl -F "fb_id=1768664556"  -F "user_id=2" facee.local/api/user/follow
+
+15.Отписка
+  curl -F "fb_id=1768664556"  -F "user_id=2" facee.local/api/user/unfollow
+
+16.Удаление комментария
+  curl -F "fb_id=1768664556"  -F "comment_id=1" facee.local/api/commet/delete
+
+17.Удаление фото
+   curl -F "fb_id=1768664556"  -F "photo_id=1" facee.local/api/pictures/delete

@@ -9,13 +9,16 @@ gem 'sqlite3'
 gem "sorcery"
 gem "haml-rails"
 gem "will_paginate"
+gem "will_paginate_mongoid"
 gem 'jquery-rails'
 gem "mongoid", "~> 3.0.0"
-gem 'mongoid-ancestry'
+gem 'mongoid_auto_increment'
 gem 'bson_ext'
 gem 'json'
 gem 'wrest'
-
+gem "rails_config"
+gem "mongoid-paperclip", :require => "mongoid_paperclip"
+gem 'aws-sdk', '~> 1.3.4'
 
 # Gems used only for assets and not required
 # in production environments by default.

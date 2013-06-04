@@ -38,6 +38,7 @@ module Facee
     # Configure the default encoding used in templates for Ruby 1.9.
     config.i18n.default_locale = :ru
     config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

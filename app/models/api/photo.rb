@@ -62,7 +62,7 @@ class Photo
 
   def to_full_json
     {
-      :last_likes     => self.likes.count,
+      :last_likes     => self.likes.limit(Settings.app.like_lim).map{|comm| comm.to_api_hash},
       :comments       => self.coments.limit(Settings.app.com_lim).map{|comm| comm.to_api_hash},
     }.merge(to_json)
   end

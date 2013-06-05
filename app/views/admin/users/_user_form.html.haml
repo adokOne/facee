@@ -1,0 +1,13 @@
+.span9.with-sidebar
+  - url =  params[:action] =~ /new/ ? admin_users_path : admin_user_path(@user)
+  .container
+    = form_for @user ,:url => url  ,:html=>{:class=>"new_user_form inline-input"} do |f|
+      = f.hidden_field :id
+      .span12.field-box
+        %label=t("admin.users.active")    
+        = f.select :active , options_for_select([[t("admin.users.active_1"),1],[t("admin.users.active_0"),0]], @user.active) ,{} ,:class=>"span9" , :required=>true
+      .span12.field-box
+        %label=t("admin.users.first_name")    
+        = f.text_field :name , :class=>"span9" , :required=>true
+      .span11.field-box.actions
+        = f.submit t("admin.users.#{params[:action]}"), :class=>"btn-glow primary"

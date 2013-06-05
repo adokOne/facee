@@ -1,10 +1,10 @@
 # encoding: UTF-8
 if AdminModule.count == 0
 	AdminModule.create(name:"Пользователи",action:"users",parent_id:0,:ico_cls=>"icon-group")
-	AdminModule.create(name:"Активность",action:"activity",parent_id:0,:ico_cls=>"sidebar-forms")
 	AdminModule.create(name:"Фото",action:"photos",parent_id:0,:ico_cls=>"icon-picture")
+	AdminModule.create(name:"Активность",action:"activity",parent_id:0,:ico_cls=>"sidebar-forms")
 	AdminModule.create(name:"Контент",action:"articles",parent_id:0,:ico_cls=>"sidebar-widgets")
-	AdminModule.create(name:"Налаштування",action:"settings",parent_id:0,:ico_cls=>"sidebar-gear")
+	#AdminModule.create(name:"Настройки",action:"settings",parent_id:0,:ico_cls=>"sidebar-gear")
 	#AdminModule.create(name:"Шаблони Email",action:"emails",parent_id:0,:ico_cls=>"sidebar-forms")
 	#AdminModule.create(name:"Довідник",action:"articles",parent_id:0,:ico_cls=>"sidebar-widgets")
 end

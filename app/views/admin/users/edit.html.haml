@@ -1,0 +1,14 @@
+#tabs-wrapper
+  .row-fluid
+    %a.span2.tab{:href=>"/admin/users"}
+      = t("admin.users.list")
+    %a.span2.tab.active{:href=>"#"}
+      = t("admin.users.add_edit")
+#pad-wrapper.new-user
+  .row-fluid.header
+    %h3= t("admin.users.add_edit")
+  .row-fluid.form-wrapper
+    = render 'user_form'
+
+
+

@@ -1,0 +1,63 @@
+ru:
+  admin:
+    photos:
+      list: Список фото
+      photo: Фото
+      user: Пользователь
+      created_at: Добавлено
+      comments: Комментариев
+      likes: Лайков
+      album: Альбом
+    articles:
+      name: Название
+      title: Справочник казначейств 
+      list: Список свойств
+      add: Добавить
+      actions: Действия
+      edit: Редактировать
+      delete: Удалить
+      cancel: Отмена
+      save: Сохранить
+      delete_success: Успешно удалено
+      saved: Успешно сохранено
+      desc: Описание
+
+
+    emails:
+      title: Шаблоны Email
+      list: Список шаблонов
+      edit_template: Редактирование шаблона
+      edit: "Редактирование шаблона '%{template}'"
+      changed: Шаблон изменен успешно
+      vars: Динамические данные письма
+      vars_info: При нажатии в окне редактирования появится спец символ
+    users:
+      pass_info: Вы можете завдать свой пароль или пароль будет сгнерирован автоматически. После изменения пароля пользователю будет отправлено електронное письмо с новым паролем
+      pass_change: Изменение пароля
+      change_pass: Отправить пароль
+      show_admin: Показать администраторов
+      generate_pass: Изменить автоматически
+      list: Список юзеров
+      add_new: Добавление юзера
+      add_edit: Редактирование юзера
+      add: Добавить пользователя
+      not_exist: Такой пользователь не существует
+      search: Поиск
+      name: Имя
+      email: Facebook
+      last_activity: Последния активность
+      created: Первый вход
+      penalties: Фоток
+      role: Тип
+      active: Активен?
+      active_0: Нет
+      active_1: Да
+      city: Город
+      street: Улица
+      building: Дом
+      first_name: Имя
+      last_name: Фамилия
+      patronic: Отчество
+      address: Адресс
+      new: Создать
+      edit: Редактировать

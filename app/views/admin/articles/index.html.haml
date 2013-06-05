@@ -1,0 +1,33 @@
+#tabs-wrapper
+  .row-fluid
+    %a.span2.tab.active{:href=>"/admin/articles"}
+      = t("admin.articles.list")
+    %a.span2.tab.active{:href=>"/admin/articles/new"}
+      = t("admin.articles.add")
+    %a.span2.tab.active{:href=>"#"}
+      = t("admin.articles.edit")
+#pad-wrapper.users-list   
+  .row-fluid.table{:"data-auto-controller"=>"AdminUsersController"}
+    %table.table.table-hover
+      %thead
+        %tr
+          %th.span2.sortable
+            = t("admin.articles.id")    
+          %th.span2.sortable
+            %span.line
+            = t("admin.articles.name") 
+          %th.span2.sortable
+            %span.line
+            = t("admin.articles.desc") 
+      %tbody
+        - @characters.each_with_index do |item,i|
+          %tr{:class=>("active" if i == 0)}
+            %td= link_to item.item_id , edit_admin_article_path(item.id) , :class=>"name"
+            %td=item.name
+            %td=item.desc
+
+
+  .pagination.pull-right 
+    = will_paginate @characters         
+
+

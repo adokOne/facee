@@ -21,8 +21,13 @@ Facee::Application.routes.draw do
 
 
   get 'admin',  to: "admin#index" 
+  get 'logout', to: "admin#exit"
   namespace :admin do
     post "login_admin"
+    resources :users
+    resources :photos
+    resources :articles
+     get "activity", to: "activity#index"
   end
 
 

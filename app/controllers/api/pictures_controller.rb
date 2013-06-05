@@ -11,11 +11,11 @@ class Api::PicturesController < Api::ApiController
   end
 
   def post
-    photo   = ::Photo.new
+    @photo   = ::Photo.new
     picture = params[:photo].nil? ? (raise Api::Exception.new(8)) : params[:photo]
-    photo.picture = picture.tempfile
-    photo.save
-    list
+    @photo.picture = picture.tempfile
+    @photo.save
+    info
   end
 
   def strim

@@ -17,7 +17,7 @@ class Api::CommentController < Api::ApiController
   def delete
     id    = params[:comment_id].to_i || 0
     @comment = ::Coment.where(id:id).first
-    @comment.nil? ? raise Api::Exception.new(4) : is_own? ? @comment.delete : raise Api::Exception.new(5)
+    @comment.nil? ? (raise Api::Exception.new(4)) : is_own? ? @comment.delete : (raise Api::Exception.new(5))
     list
   end
 

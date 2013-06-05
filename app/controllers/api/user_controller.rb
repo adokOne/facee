@@ -34,15 +34,15 @@ class Api::UserController < Api::ApiController
 
 
   def friends
-  	p $current_user.friends
+  	@result =  $current_user.friends.to_json
   end
 
   def followers
-  	p $current_user.followers
+  	@result = $current_user.followers.to_json
   end
 
   def following
-  	p $current_user.followers
+  	@result = $current_user.followings.to_json
   end
 
 

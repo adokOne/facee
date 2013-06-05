@@ -10,6 +10,7 @@ class Api::ApiController < ApplicationController
 
   def authorize
       ::AppUser.login(params[:fb_id])
+      $current_user.update_activity
   end
 
   def create_result

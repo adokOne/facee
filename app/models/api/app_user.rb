@@ -22,8 +22,6 @@ class AppUser
 
 
 
-
-  after_initialize :update_activity
   before_create :set_avatar
 
   def update_activity
@@ -43,7 +41,7 @@ class AppUser
 
   def friend!(user)
     if self.id != user.id && !self.friend.include?(user)
-      self.following << user
+      self.friend << user
     end
   end
 

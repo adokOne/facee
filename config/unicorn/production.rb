@@ -7,7 +7,7 @@ preload_app true
 timeout 180
 listen  "#{app_path}/tmp/sockets/unicorn.sock", :backlog => 64
 
-user "adok", "adok"
+user "root", "root"
 working_directory app_path
 rails_env = ENV['RAILS_ENV'] || 'production'
 

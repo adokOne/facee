@@ -2,7 +2,7 @@ require "rvm/capistrano"
 require "bundler/capistrano"
 require "capistrano"
 set :application, "facee"
-set :repository,  "https://github.com/adokOne/facee.git"
+set :repository,  "git://github.com/adokOne/facee.git"
 set :user, "root"
 set :use_sudo, false
 
@@ -10,24 +10,25 @@ set :deploy_via, :remote_cache
 set :scm, :git
 set :branch, 'master'
 set :scm_verbose, true
-set :deploy_to, "/home/facee/deploy/#{application}"
+set :deploy_to, "/var/www/#{application}"
 
 set :rails_env, :production
 set :rvm_ruby_string , "1.9.3"
-set :rvm_type, :user
+set :rvm_type, :system
+set :rvm_path, "/usr/local/rvm"
 ssh_options[:forward_agent] = true;
 
 server "88.198.110.171", :app, :web, :db, :primary => true
 
 
-after 'deploy:finalize_update', 'deploy:symlink_db'
+#after 'deploy:finalize_update', 'deploy:symlink_db'
 
 namespace :deploy do
   desc "Symlinks the database.yml"
-  task :symlink_db, :roles => :app do
-    run "ln -s #{shared_path}/config/database.yml #{latest_release}/config/database.yml"
+ # task :symlink_db, :roles => :app do
+    #run "ln -s #{shared_path}/config/database.yml #{latest_release}/config/database.yml"
    # run "ln -s #{shared_path}/log/production.log #{latest_release}/log/production.log"
-  end
+ # end
 end
 
 desc "Create socket file symlink for nginx"

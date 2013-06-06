@@ -3,21 +3,21 @@ require "bundler/capistrano"
 require "capistrano"
 set :application, "facee"
 set :repository,  "https://github.com/adokOne/facee.git"
-set :user, "adok"
+set :user, "root"
 set :use_sudo, false
 
 set :deploy_via, :remote_cache
 set :scm, :git
 set :branch, 'master'
 set :scm_verbose, true
-set :deploy_to, "/home/adok/#{application}"
+set :deploy_to, "/home/facee/deploy/#{application}"
 
 set :rails_env, :production
 set :rvm_ruby_string , "1.9.3"
 set :rvm_type, :user
 ssh_options[:forward_agent] = true;
 
-server "172.27.0.119", :app, :web, :db, :primary => true
+server "88.198.110.171", :app, :web, :db, :primary => true
 
 
 after 'deploy:finalize_update', 'deploy:symlink_db'

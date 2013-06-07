@@ -35,7 +35,7 @@ class AppUser
   end
 
 
-  def to_json
+  def to_api_hash
     {
       :avatar          => self.avatar,
       :created_at      => self.created_at,
@@ -43,7 +43,7 @@ class AppUser
       :gender          => self.gender,
       :last_activity   => self.last_activity,
       :followers_count => self.followers.count,
-      :friends_count   => self.friends_count
+      :friends_count   => self.friends.count
     }.merge(to_small_hash)
   end
 

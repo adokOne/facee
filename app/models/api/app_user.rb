@@ -42,7 +42,7 @@ class AppUser
       :fb_id           => self.fb_id,
       :gender          => self.gender,
       :last_activity   => self.last_activity,
-      :followers_count => self.followers.count
+      :followers_count => self.followers.count,
       :friends_count   => self.friends_count
     }.merge(to_small_hash)
   end
@@ -57,7 +57,7 @@ class AppUser
   def to_full_api_hash
     {
       :last_folowers     => self.followers.limit(Settings.app.folow_lim).map{|f| f.to_small_hash},
-      :last_freiends     => self.friends.limit(Settings.app.friend_lim).map{|f| f.to_small_hash},
+      :last_freiends     => self.friends.limit(Settings.app.friend_lim).map{|f| f.to_small_hash}
     }.merge(to_api_hash)
   end
 

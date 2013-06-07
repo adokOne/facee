@@ -7,6 +7,10 @@ class Api::ApiController < ApplicationController
   rescue_from Api::Exception , NoMethodError , :with => :send_error
   rescue_from ActionView::MissingTemplate,     :with => :send_response
   
+  def routing_error
+    raise Api::Exception(11)
+  end
+
   protected
 
   def chek_access

@@ -32,8 +32,7 @@ Facee::Application.routes.draw do
 
 
   root :to => 'main#index'
-  match "*", :to => "api/api#routing_error"
-
+  match '*a',   :to => 'api/api#routing_error'
 
 
 

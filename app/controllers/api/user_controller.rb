@@ -3,16 +3,16 @@ class Api::UserController < Api::ApiController
   before_filter :set_user , :except => [:list,:info,:friends,:folowers]
 
   def list
-  	@result = ::AppUser.paginate(:per_page => Settings.app.users_limit, :page => params[:page]).to_json
+  	@result = ::AppUser.paginate(:per_page => Settings.app.users_limit, :page => params[:page]).to_api_hash
   end
 
 
   def info
-    @result = params[:full] ?  $current_user.to_full_json :  $current_user.to_json
+    @result = params[:full] ?  $current_user.to_full_api_hash :  $current_user.to_api_hash
   end
 
   def user_info
-  	@result = params[:full] ?  @user.to_full_json :  @user.to_json
+  	@result = params[:full] ?  @user.to_full_api_hash :  @user.to_api_hash
   end
 
   def follow
@@ -34,15 +34,15 @@ class Api::UserController < Api::ApiController
 
 
   def friends
-  	@result =  $current_user.friends.to_json
+  	@result =  $current_user.friends.to_api_hash
   end
 
   def followers
-  	@result = $current_user.followers.to_json
+  	@result = $current_user.followers.to_api_hash
   end
 
   def following
-  	@result = $current_user.followings.to_json
+  	@result = $current_user.followings.to_api_hash
   end
 
 

@@ -34,8 +34,31 @@ class AppUser
   	self[:avatar] = data.headers["location"]
   end
 
-  def to_full_json
-    self.to_json
+
+  def to_api_hash
+    {
+      :avatar          => self.avatar,
+      :created_at      => self.created_at,
+      :fb_id           => self.fb_id,
+      :gender          => self.gender,
+      :last_activity   => self.last_activity,
+      :followers_count => self.followers.count
+      :friends_count   => self.friends_count
+    }.merge(to_small_hash)
+  end
+
+  def to_small_hash
+    {
+      :id   => self.id,
+      :name => self.name
+    }
+  end
+
+  def to_full_api_hash
+    {
+      :last_folowers     => self.followers.limit(Settings.app.folow_lim).map{|f| f.to_small_hash},
+      :last_freiends     => self.friends.limit(Settings.app.friend_lim).map{|f| f.to_small_hash},
+    }.merge(to_api_hash)
   end
 
 

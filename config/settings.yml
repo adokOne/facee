@@ -4,6 +4,8 @@ app:
   photos_limit: 5
   com_lim: 2
   like_lim: 2
+  folow_lim: 2
+  friend_lim: 2
   image_dir: /photos/
   image_name: medium
   image_ext: .jpg

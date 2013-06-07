@@ -10,8 +10,9 @@ class AppUser
   field :last_activity, type: DateTime
   field :id, 			      type: Integer
   field :avatar, 	      type: String
+  field :key_id,        type: Moped::BSON::ObjectId
   auto_increment :id
-
+  belongs_to :key
   has_many :coments,  :dependent => :destroy
   has_many :photos,   :dependent => :destroy
   has_many :albums,   :dependent => :destroy
@@ -23,7 +24,7 @@ class AppUser
 
 
   before_create :set_avatar
-
+  before_create :set_key
   def update_activity
   	self.update_attribute :last_activity, Time.now.to_datetime
   end
@@ -34,10 +35,14 @@ class AppUser
   	self[:avatar] = data.headers["location"]
   end
 
+  def set_key
+    sel
+  end
+
 
   def to_api_hash
     {
-      :avatar          => self.avatar,
+      
       :created_at      => self.created_at,
       :fb_id           => self.fb_id,
       :gender          => self.gender,
@@ -49,8 +54,9 @@ class AppUser
 
   def to_small_hash
     {
-      :id   => self.id,
-      :name => self.name
+      :id     => self.id,
+      :name   => self.name,
+      :avatar => self.avatar
     }
   end
 

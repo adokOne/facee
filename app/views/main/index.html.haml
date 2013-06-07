@@ -1,0 +1,42 @@
+.content
+  .container-fluid
+    #tabs-wrapper
+      .row-fluid
+        .span8
+          %h5 Базовый URl для запросов http://#{request.host}/api
+          %h5 Во всех запросах должен присутсвовать ключ и Facebook ID пользователя
+          %h5 45750cf87cb40fc9efe2ff0c9d8dd0a7
+    #pad-wrapper
+      .row-fluid.table
+        %table
+          %thead
+            %tr
+              %th Тип
+              %th URL
+              %th Параметры
+              %th Ответ
+              %th Пример
+          %tbody
+            %tr
+              %td Получение списка всех фото
+              %td /pictures/strim
+              %td DEFAULT [page=NUMBER]
+              %td [{"user_id":6,"name":"Саша Чернов","photo":"http://www.facee.local/photos/6/3/medium.jpg","like_count":0,"comments_count":0,"created_at":"2013-06-07T06:28:59Z"}]
+              %td 
+                %a{:href=>"http://#{request.host}/api/pictures/strim?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556",:target=>"_blank"} Получить ответ
+            %tr
+              %td Получение списка своих фото
+              %td /pictures/list
+              %td DEFAULT [page=NUMBER] [full=1]
+              %td [{"photo":"http://www.facee.local/photos/6/3/medium.jpg","like_count":0,"comments_count":0,"created_at":"2013-06-07T06:28:59Z"}]
+              %td 
+                %a{:href=>"http://#{request.host}/api/pictures/list?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556",:target=>"_blank"} Получить ответ
+            %tr
+              %td Загрузка фото
+              %td /pictures/post
+              %td DEFAULT & photo=PICTURE
+              %td [{"photo":"http://www.facee.local/photos/6/3/medium.jpg","like_count":0,"comments_count":0,"created_at":"2013-06-07T06:28:59Z"}]
+              %td 
+                = form_tag "http://#{request.host}/api/pictures/post?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556" , :multipart=>true do
+                  = file_field_tag "photo" , :accept => 'image/jpeg'
+                  = submit_tag "Запостить фотку"

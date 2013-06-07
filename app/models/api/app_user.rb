@@ -35,7 +35,7 @@ class AppUser
   end
 
 
-  def to_api_hash
+  def to_json
     {
       :avatar          => self.avatar,
       :created_at      => self.created_at,

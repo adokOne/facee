@@ -14,7 +14,9 @@ class Api::ApiController < ApplicationController
   protected
 
   def chek_access
-    raise Api::Exception.new(10) if params[:key].nil? || ::Key.find_by(secret:params[:key]).nil? 
+    ::Key.find_by(secret:params[:key])
+    rescue Mongoid::Errors::DocumentNotFound
+      raise Api::Exception.new(10)
   end
 
   def authorize

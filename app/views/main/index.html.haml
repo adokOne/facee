@@ -5,7 +5,9 @@
         .span8
           %h5 Базовый URl для запросов http://#{request.host}/api
           %h5 Во всех запросах должен присутсвовать ключ и Facebook ID пользователя
-          %h5 45750cf87cb40fc9efe2ff0c9d8dd0a7 
+          %h5 Ключ 45750cf87cb40fc9efe2ff0c9d8dd0a7 
+          %h5 DEFAULT = key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=FB_ID
+          %h5 [key=value] - Необязательные параметры
     - photo_id = Photo.last.nil? ? 0 : Photo.last.id
     - comment_id = Coment.last.nil? ? 0 : Coment.last.id
     - user_id    = AppUser.last.nil? ? 0 : AppUser.last.id

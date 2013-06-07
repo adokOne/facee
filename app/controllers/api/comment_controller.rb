@@ -1,10 +1,10 @@
 class Api::CommentController < Api::ApiController
 
 
-  before_filter :set_photo
+  before_filter :set_photo ,:except=> :delete
 
   def list
-  	@result = ::Coment.where(photo_id:@photo.id).paginate(:per_page => Settings.app.coments_limit, :page => params[:page]).to_json
+  	@result = ::Coment.where(photo_id:@photo.id).paginate(:per_page => Settings.app.coments_limit, :page => params[:page]).map{|c| c.to_full_api_hash}
   end
 
 
@@ -18,14 +18,14 @@ class Api::CommentController < Api::ApiController
     id    = params[:comment_id].to_i || 0
     @comment = ::Coment.where(id:id).first
     @comment.nil? ? (raise Api::Exception.new(4)) : is_own? ? @comment.delete : (raise Api::Exception.new(5))
-    list
+    @result = {:success=>true}
   end
 
 
   private
 
   def is_own?
-    $current_user.comments.include? @comment
+    $current_user.coments.include? @comment
   end
 
   def set_photo

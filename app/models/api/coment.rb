@@ -12,13 +12,19 @@ class Coment
 
   before_save :set_user
 
-  private
-
   def to_api_hash
     {:user_id=>self.app_user.id,:name=>self.app_user.name,:comment=>self.text}
   end
 
+  def to_full_api_hash
+    {
+      :id         => self.id,
+      :created_at => self.created_at,
+      :photo_id   => self.photo_id
+    }.merge(to_api_hash)
+  end
 
+  private 
   def set_user
     self.app_user = $current_user
   end

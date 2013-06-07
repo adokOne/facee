@@ -36,7 +36,7 @@ class AppUser
   end
 
   def set_key
-    sel
+    self[:key_id] = Key.first.id
   end
 
 
@@ -82,15 +82,10 @@ class AppUser
   def follow!(user)
     if self.id != user.id && !self.following.include?(user)
       self.following << user
+    elsif self.following.include?(user)
+      self.following.delete(user)
     end
   end
-
-  def unfollow!(user)
-    self.following.delete(user)
-  end
-
-
-
 
   class << self 
 	  def login fb_id

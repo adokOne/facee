@@ -5,7 +5,10 @@
         .span8
           %h5 Базовый URl для запросов http://#{request.host}/api
           %h5 Во всех запросах должен присутсвовать ключ и Facebook ID пользователя
-          %h5 45750cf87cb40fc9efe2ff0c9d8dd0a7
+          %h5 45750cf87cb40fc9efe2ff0c9d8dd0a7 
+    - photo_id = Photo.last.nil? ? 0 : Photo.last.id
+    - comment_id = Coment.last.nil? ? 0 : Coment.last.id
+    - user_id    = AppUser.last.nil? ? 0 : AppUser.last.id
     #pad-wrapper
       .row-fluid.table
         %table
@@ -21,22 +24,127 @@
               %td Получение списка всех фото
               %td /pictures/strim
               %td DEFAULT [page=NUMBER]
-              %td [{"user_id":6,"name":"Саша Чернов","photo":"http://www.facee.local/photos/6/3/medium.jpg","like_count":0,"comments_count":0,"created_at":"2013-06-07T06:28:59Z"}]
+              %td [{"id":3,"user_id":6,"name":"Саша Чернов","photo":"http://www.facee.local/photos/6/3/medium.jpg","like_count":0,"comments_count":0,"created_at":"2013-06-07T06:28:59Z"}]
               %td 
                 %a{:href=>"http://#{request.host}/api/pictures/strim?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556",:target=>"_blank"} Получить ответ
             %tr
               %td Получение списка своих фото
               %td /pictures/list
               %td DEFAULT [page=NUMBER] [full=1]
-              %td [{"photo":"http://www.facee.local/photos/6/3/medium.jpg","like_count":0,"comments_count":0,"created_at":"2013-06-07T06:28:59Z"}]
+              %td [{"id":3,"photo":"http://www.facee.local/photos/6/3/medium.jpg","like_count":0,"comments_count":0,"created_at":"2013-06-07T06:28:59Z"}]
               %td 
                 %a{:href=>"http://#{request.host}/api/pictures/list?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556",:target=>"_blank"} Получить ответ
             %tr
               %td Загрузка фото
               %td /pictures/post
               %td DEFAULT & photo=PICTURE
-              %td [{"photo":"http://www.facee.local/photos/6/3/medium.jpg","like_count":0,"comments_count":0,"created_at":"2013-06-07T06:28:59Z"}]
+              %td {"id":6,"photo":"http://www.facee.local/photos/6/6/medium.jpg","like_count":0,"comments_count":0,"created_at":"2013-06-07T07:12:20Z"}
               %td 
                 = form_tag "http://#{request.host}/api/pictures/post?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556" , :multipart=>true do
                   = file_field_tag "photo" , :accept => 'image/jpeg'
                   = submit_tag "Запостить фотку"
+            %tr
+              %td Инфа по конкретному фото
+              %td /pictures/info
+              %td DEFAULT & photo_id=NUMBER [full=1]
+              %td {"id":6,"photo":"http://www.facee.local/photos/6/6/medium.jpg","like_count":0,"comments_count":1,"created_at":"2013-06-07T07:12:20Z"}
+              %td 
+                %a{:href=>"http://#{request.host}/api/pictures/info?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556&photo_id=#{photo_id}",:target=>"_blank"} Получить ответ
+            %tr
+              %td Удаление фото
+              %td /pictures/delete
+              %td DEFAULT & photo_id=NUMBER [full=1]
+              %td {"success":true}
+              %td 
+                %a{:href=>"http://#{request.host}/api/pictures/delete?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556&photo_id=#{photo_id}",:target=>"_blank"} Получить ответ
+
+            %tr
+              %td Like или UnLike фотки (toogle) 
+              %td pictures/like
+              %td DEFAULT & photo_id=NUMBER
+              %td {"success":true,"like_count":1}
+              %td 
+                %a{:href=>"http://#{request.host}/api/pictures/like?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556&photo_id=#{photo_id}",:target=>"_blank"} Получить ответ
+            %tr
+              %td Коммент фотки
+              %td /comment/post
+              %td DEFAULT & photo_id=NUMBER & text=TEXT
+              %td [{"id":4,"created_at":"2013-06-07T07:15:33Z","photo_id":6,"user_id":6,"name":"Саша Чернов","comment":"wfewfewfew"}]
+              %td 
+                = form_tag "http://#{request.host}/api/comment/post?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556&photo_id=#{photo_id}" , :multipart=>true do
+                  = text_area_tag "text"
+                  = submit_tag "Запостить коммент"
+            %tr
+              %td Удаление своего комментария
+              %td /comment/delete
+              %td DEFAULT & comment_id=NUMBER
+              %td {"success":true}
+              %td 
+                %a{:href=>"http://#{request.host}/api/comment/delete?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556&comment_id=#{comment_id}",:target=>"_blank"} Получить ответ
+            %tr
+              %td Получение списка комментов к фото
+              %td /comment/list
+              %td DEFAULT & photo_id=NUMBER  [page=NUMBER]
+              %td [{"id":6,"created_at":"2013-06-07T07:32:19Z","photo_id":6,"user_id":6,"name":"Саша Чернов","comment":"arsgerwgew"}]
+              %td 
+                %a{:href=>"http://#{request.host}/api/comment/list?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556&photo_id=#{photo_id}",:target=>"_blank"} Получить ответ
+            %tr
+              %td Получение списка пользователей
+              %td /user/list
+              %td DEFAULT [page=NUMBER]
+              %td [{"created_at":"2013-06-07T07:59:32Z","fb_id":"1768664556","gender":"male","last_activity":"2013-06-07T08:06:04+00:00","followers_count":0,"friends_count":0,"id":4,"name":"Саша Чернов","avatar":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/c31.31.392.392/s200x200/417030_1891111975371_1448337623_n.jpg"}]
+              %td 
+                %a{:href=>"http://#{request.host}/api/user/list?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556",:target=>"_blank"} Получить ответ
+            %tr
+              %td Инфа по самому себе
+              %td /user/info
+              %td DEFAULT [full=1]
+              %td {"created_at":"2013-06-07T07:59:32Z","fb_id":"1768664556","gender":"male","last_activity":"2013-06-07T08:07:45+00:00","followers_count":0,"friends_count":0,"id":4,"name":"Саша Чернов","avatar":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/c31.31.392.392/s200x200/417030_1891111975371_1448337623_n.jpg"}
+              %td 
+                %a{:href=>"http://#{request.host}/api/user/info?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556",:target=>"_blank"} Получить ответ
+            %tr
+              %td Инфа по конкретному юзеру
+              %td /user/user_info
+              %td DEFAULT &user_id=NUMBER [full=1]
+              %td {"created_at":"2013-06-07T07:59:32Z","fb_id":"1768664556","gender":"male","last_activity":"2013-06-07T08:07:45+00:00","followers_count":0,"friends_count":0,"id":4,"name":"Саша Чернов","avatar":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/c31.31.392.392/s200x200/417030_1891111975371_1448337623_n.jpg"}
+              %td 
+                %a{:href=>"http://#{request.host}/api/user/user_info?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556&user_id=#{user_id}",:target=>"_blank"} Получить ответ
+            %tr
+              %td Подписка отписка от юзера (toogle) 
+              %td user/follow
+              %td DEFAULT & user_id=NUMBER
+              %td [{"created_at":"2013-06-07T08:15:41Z","fb_id":"andrej104","gender":"male","last_activity":"2013-06-07T08:15:42+00:00","followers_count":1,"friends_count":0,"id":5,"name":"Андрей Ингульский","avatar":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn1/c21.21.259.259/s200x200/67817_138289056225678_2063938_n.jpg"}]
+              %td 
+                %a{:href=>"http://#{request.host}/api/user/follow?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556&user_id=#{user_id}",:target=>"_blank"} Получить ответ
+            %tr
+              %td Список подписок
+              %td /user/following
+              %td DEFAULT [page=NUMBER]
+              %td [{"created_at":"2013-06-07T07:59:32Z","fb_id":"1768664556","gender":"male","last_activity":"2013-06-07T08:06:04+00:00","followers_count":0,"friends_count":0,"id":4,"name":"Саша Чернов","avatar":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/c31.31.392.392/s200x200/417030_1891111975371_1448337623_n.jpg"}]
+              %td 
+                %a{:href=>"http://#{request.host}/api/user/following?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556",:target=>"_blank"} Получить ответ
+            %tr
+              %td Список подписчиков
+              %td /user/followers
+              %td DEFAULT [page=NUMBER]
+              %td [{"created_at":"2013-06-07T07:59:32Z","fb_id":"1768664556","gender":"male","last_activity":"2013-06-07T08:06:04+00:00","followers_count":0,"friends_count":0,"id":4,"name":"Саша Чернов","avatar":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/c31.31.392.392/s200x200/417030_1891111975371_1448337623_n.jpg"}]
+              %td 
+                %a{:href=>"http://#{request.host}/api/user/followers?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556",:target=>"_blank"} Получить ответ
+            %tr
+              %td Список друзей юзера(Доавление удаление в разработке)
+              %td /user/friends
+              %td DEFAULT [page=NUMBER]
+              %td [{"created_at":"2013-06-07T07:59:32Z","fb_id":"1768664556","gender":"male","last_activity":"2013-06-07T08:06:04+00:00","followers_count":0,"friends_count":0,"id":4,"name":"Саша Чернов","avatar":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/c31.31.392.392/s200x200/417030_1891111975371_1448337623_n.jpg"}]
+              %td 
+                %a{:href=>"http://#{request.host}/api/user/friends?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556",:target=>"_blank"} Получить ответ
+
+
+
+
+
+
+
+
+
+
+

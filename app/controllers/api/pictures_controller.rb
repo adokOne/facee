@@ -7,7 +7,7 @@ class Api::PicturesController < Api::ApiController
   end
 
   def info
-    @result = params[:full].nil? ?  @photo.to_full_json :  @photo.to_json
+    @result = params[:full].nil? ?  @photo.to_json : @photo.to_full_json
   end
 
   def post
@@ -24,10 +24,13 @@ class Api::PicturesController < Api::ApiController
 
   def like
     @photo.like!
+    @result = {:success=>true,:like_count=>@photo.likes.count}
   end
 
   def delete
     is_own? ? @photo.delete : (raise Api::Exception.new(7))
+    FileUtils.rm_rf "#{Rails.root}/public/photos/#{$current_user.id}/#{@photo.id}"
+    @result = {:success=>true}
   end
 
 

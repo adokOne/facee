@@ -46,6 +46,7 @@ class Photo
 
   def to_json
     {
+      :id             => self.id,
       :photo          => "#{$request.protocol}#{$request.host}#{Settings.app.image_dir}#{self.app_user.id}/#{self.id}/#{Settings.app.image_name}#{Settings.app.image_ext}",
       :like_count     => self.likes.count,
       :comments_count => self.coments.count,

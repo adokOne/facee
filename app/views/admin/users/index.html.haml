@@ -47,7 +47,8 @@
         - @users.each_with_index do |user,i|
           %tr{:class=>("active" if i == 0)}
             %td
-              = image_tag user.avatar ,:class=>"img-circle avatar hidden-phone"
+              - unless user.avatar.nil?
+                = image_tag user.avatar ,:class=>"img-circle avatar hidden-phone"
               = link_to "#{user.name}" , edit_admin_user_path(user.id) , :class=>"name"
             %td
               %span.subtext 

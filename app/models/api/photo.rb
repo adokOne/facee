@@ -57,7 +57,8 @@ class Photo
   def to_strim
     {
       :user_id => self.app_user.id,
-      :name    => self.app_user.name
+      :name    => self.app_user.name,
+      :fb_id   => self.app_user.fb_id,
     }.merge(to_json)
   end
 

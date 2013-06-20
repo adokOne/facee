@@ -7,7 +7,7 @@ class Photo
   field          :album_id   , :type => Moped::BSON::ObjectId
   auto_increment :id 
 
-  has_mongoid_attached_file :picture, :path => "public/photos/:app_user_id/:id/:style.:extension",    :styles => {
+  has_mongoid_attached_file :picture, :path => "public/system/photos/:app_user_id/:id/:style.:extension",    :styles => {
       :original => ['1920x1680>', :jpg],
       :small    => ['100x100#',   :jpg],
       :medium   => ['250x250',    :jpg],

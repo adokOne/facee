@@ -6,7 +6,7 @@ app:
   like_lim: 2
   folow_lim: 2
   friend_lim: 2
-  image_dir: /photos/
+  image_dir: /system/photos/
   image_name: medium
   image_ext: .jpg
   photo_sizes:

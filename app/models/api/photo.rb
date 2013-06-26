@@ -35,10 +35,12 @@ class Photo
     like = Like.where(:app_user_id=>$current_user.id).first
     if !like.nil? && self.likes.include?(like)
       self.likes.delete(like)
+      return 0
     else
       like = Like.new
       like.photo = self
       like.save
+      return 1
     end
   end
 

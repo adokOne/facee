@@ -64,7 +64,7 @@ class Photo
       :avatar  => self.app_user.avatar,
       :name    => self.app_user.name,
       :fb_id   => self.app_user.fb_id,
-      :description    => {:payed=>self.description_payed,:items=>self.descriptions.first.to_api_hash}
+      :description    => {:payed=>self.description_payed,:items=>self.descriptions.first.nil? ? {} : self.descriptions.first.to_api_hash}
     })
   end
 

@@ -146,7 +146,7 @@
               %td DEFAULT & photo=PICTURE [bg=1]
               %td {"created_at":"2013-06-07T07:59:32Z","fb_id":"1768664556","gender":"male","last_activity":"2013-07-01T13:51:33+00:00","followers_count":0,"friends_count":0,"id":4,"name":"Саша Чернов","avatar":"http://www.facee.local/system/avatars/4_pic.jpg"}
               %td 
-                = form_tag "http://#{request.host}/api/user/upload_avatar?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556&bg=1" , :multipart=>true do
+                = form_tag "http://#{request.host}/api/user/upload_avatar?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556" , :multipart=>true do
                   = file_field_tag "photo" , :accept => 'image/jpeg'
                   = submit_tag "Загрузить аватар"
             %tr
@@ -163,7 +163,7 @@
               %td {"success":true}
               %td 
                 %a{:href=>"http://#{request.host}/api/pictures/pay?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556&photo_id=#{photo_id}",:target=>"_blank"} Получить ответ
-                
+
 
 
 

@@ -15,6 +15,14 @@ class Api::UserController < Api::ApiController
   	@result = params[:full] ?  @user.to_full_api_hash :  @user.to_api_hash
   end
 
+  def upload_avatar
+    picture = params[:photo].nil? ? (raise Api::Exception.new(8)) : params[:photo]
+    prx = !params[:bg].nil? && params[:bg].to_i == 1 ? "#{$current_user.id}_bg": $current_user.id 
+    $current_user.update_attribute prx == $current_user.id ? :avatar : :avatar_bg , "http://#{request.host}#{Tools.process_picture(params[:photo],prx,Settings.app.avatar)}"
+    info
+  end
+
+
   def follow
   	$current_user.follow!(@user)
     following

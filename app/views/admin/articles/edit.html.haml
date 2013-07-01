@@ -1,0 +1,13 @@
+#tabs-wrapper
+  .row-fluid
+    %a.span2.tab.active{:href=>"/admin/articles"}
+      = t("admin.articles.list")
+    %a.span2.tab.active{:href=>"/admin/articles/new"}
+      = t("admin.articles.add")
+    %a.span2.tab.active{:href=>"#"}
+      = t("admin.articles.edit")
+#pad-wrapper.new-user
+  .row-fluid.header
+    %h3
+  .row-fluid.form-wrapper
+    = render 'form'

@@ -1,0 +1,14 @@
+.span9.with-sidebar
+  - url =  params[:action] =~ /new/ ? admin_articles_path : "/admin/articles/#{@article.id}"  
+  .container
+    = form_for @article , :as=>:article ,:url => url  ,:html=>{:class=>"new_user_form inline-input"} do |f|
+      = f.hidden_field :id
+      - %w(ru en ua).each do |lang|
+        .span12.field-box
+          %label #{t("admin.articles.name")} #{lang}
+          = f.text_field "name_#{lang}", :class=>"span9" , :required=>true
+        .span12.field-box
+          %label #{t("admin.articles.desc")} #{lang}
+          = f.text_field "body_#{lang}", :class=>"span9" , :required=>true 
+      .span11.field-box.actions
+        = f.submit t("admin.articles.save"), :class=>"btn-glow primary"

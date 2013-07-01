@@ -5,6 +5,7 @@ class Photo
   include Mongoid::Paperclip
   field          :app_user_id, :type => Moped::BSON::ObjectId
   field          :album_id   , :type => Moped::BSON::ObjectId
+  field          :description_payed, :type  => Boolean, :default => false
   auto_increment :id 
 
   has_mongoid_attached_file :picture, :path => "public/system/photos/:app_user_id/:id/:style.:extension",    :styles => {
@@ -25,7 +26,7 @@ class Photo
   has_many       :coments , :dependent => :destroy
   has_many       :likes,    :dependent => :destroy , :autosave => true
 
-  has_and_belongs_to_many :characters
+  has_and_belongs_to_many :descriptions
 
   before_save :check_album
   before_save :set_user
@@ -52,16 +53,19 @@ class Photo
       :photo          => "#{$request.protocol}#{$request.host}#{Settings.app.image_dir}#{self.app_user.id}/#{self.id}/#{Settings.app.image_name}#{Settings.app.image_ext}",
       :like_count     => self.likes.count,
       :comments_count => self.coments.count,
-      :created_at     => self.created_at
+      :created_at     => self.created_at,
+      :description    => {:payed=>self.description_payed,:items=>self.descriptions.map{|des| des.to_api_hash}}
     }
   end
 
   def to_strim
-    {
+    to_json.merge({
       :user_id => self.app_user.id,
+      :avatar  => self.app_user.avatar,
       :name    => self.app_user.name,
       :fb_id   => self.app_user.fb_id,
-    }.merge(to_json)
+      :description    => {:payed=>self.description_payed,:items=>self.descriptions.first.to_api_hash}
+    })
   end
 
   def to_full_json

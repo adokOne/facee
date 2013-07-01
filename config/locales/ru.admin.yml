@@ -10,7 +10,7 @@ ru:
       album: Альбом
     articles:
       name: Название
-      title: Справочник казначейств 
+      desc: Текст 
       list: Список свойств
       add: Добавить
       actions: Действия

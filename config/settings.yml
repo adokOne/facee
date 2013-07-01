@@ -12,7 +12,11 @@ app:
   photo_sizes:
     width: 200
     height: 200
-
+  avatar:
+    upload_dir: /system/avatars/
+    b:
+      width: 100
+      height: 100
 facebook:
   url:
     graph: https://graph.facebook.com

@@ -1,6 +1,6 @@
 class Api::PicturesController < Api::ApiController
 
-  before_filter :set_photo ,:only=>[:delete,:info,:like]
+  before_filter :set_photo ,:only=>[:delete,:info,:like,:set_attr,:pay]
 
   def list
   	@result = ::Photo.where(:app_user=>$current_user.id).paginate(:per_page => Settings.app.photos_limit, :page => params[:page]).map{|photo| params[:full].nil? ? photo.to_json : photo.to_full_json}
@@ -29,6 +29,23 @@ class Api::PicturesController < Api::ApiController
   def delete
     is_own? ? @photo.delete : (raise Api::Exception.new(7))
     FileUtils.rm_rf "#{Rails.root}/public/photos/#{$current_user.id}/#{@photo.id}"
+    @result = {:success=>true}
+  end
+
+  def set_attr
+    raise Api::Exception.new(7) unless is_own? 
+    raise Api::Exception.new(12) if params[:attributes].nil? || params[:attributes].split(",").count < 1 
+    desc = ::Description.find(params[:attributes].split(",").map(&:to_i)) 
+    @photo.descriptions << desc
+    @photo.save
+    @result = {:success=>true}
+  rescue 
+    raise Api::Exception.new(13) 
+  end
+
+  def pay
+    raise Api::Exception.new(7) unless is_own? 
+    @photo.update_attribute :description_payed, true
     @result = {:success=>true}
   end
 

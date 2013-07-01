@@ -10,6 +10,7 @@ class AppUser
   field :last_activity, type: DateTime
   field :id, 			      type: Integer
   field :avatar, 	      type: String
+  field :avatar_bg,     type: String
   field :key_id,        type: Moped::BSON::ObjectId
   auto_increment :id
   belongs_to :key
@@ -63,7 +64,8 @@ class AppUser
   def to_full_api_hash
     {
       :last_folowers     => self.followers.limit(Settings.app.folow_lim).map{|f| f.to_small_hash},
-      :last_freiends     => self.friends.limit(Settings.app.friend_lim).map{|f| f.to_small_hash}
+      :last_freiends     => self.friends.limit(Settings.app.friend_lim).map{|f| f.to_small_hash},
+      :avatar_bg         => self.avatar_bg
     }.merge(to_api_hash)
   end
 

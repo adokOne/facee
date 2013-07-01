@@ -2,7 +2,7 @@ Facee::Application.routes.draw do
   
   namespace :api do
     namespace :user do 
-      %w(authorize list info user_info follow friend friends followers following).each do |action|
+      %w(authorize list info user_info follow friend friends followers following upload_avatar).each do |action|
         match action , :via=>[:get,:post]
       end
     end
@@ -12,7 +12,7 @@ Facee::Application.routes.draw do
       end
     end
     namespace :pictures do 
-      %w(list info delete post like strim).each do |action|
+      %w(pay set_attr list info delete post like strim).each do |action|
         match action , :via=>[:get,:post]
       end
     end

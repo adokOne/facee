@@ -3,6 +3,9 @@
   .container
     = form_for @article , :as=>:article ,:url => url  ,:html=>{:class=>"new_user_form inline-input"} do |f|
       = f.hidden_field :id
+      .span12.field-box
+        %label Тип
+        = f.select :item_type , options_for_select([["Голова",1],["Вуха",2],["Ніс",2]],@article.item_type.nil? ? 1 : @article.item_type) ,{} ,:class=>"span9" , :required=>true
       - %w(ru en ua).each do |lang|
         .span12.field-box
           %label #{t("admin.articles.name")} #{lang}

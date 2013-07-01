@@ -12,7 +12,9 @@
       %thead
         %tr
           %th.span2.sortable
-            = t("admin.articles.id")    
+            = t("admin.articles.id")  
+          %th.span2.sortable
+            Тип      
           %th.span2.sortable
             %span.line
             = t("admin.articles.name") 
@@ -22,8 +24,9 @@
       %tbody
         - @characters.each_with_index do |item,i|
           %tr{:class=>("active" if i == 0)}
-            %td= link_to item.id , edit_admin_article_path(item.id) , :class=>"name"
-            %td=item.name
+            %td=item.id
+            %td=t("api.desc_types.t_#{item.item_type}")
+            %td=link_to item.name , edit_admin_article_path(item.id) , :class=>"name"
             %td=item.body
 
 

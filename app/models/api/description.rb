@@ -8,6 +8,7 @@ class Description
   field :name_ru,   type: String , :default => ""
   field :name_ua,   type: String , :default => ""
   field :name_en,   type: String , :default => ""
+  field :item_type, type: Integer, :default =>  1  
   auto_increment :id, :type => Moped::BSON::ObjectId
   has_and_belongs_to_many :photos
 
@@ -19,7 +20,7 @@ class Description
   end
 
   def to_api_hash
-    {:body=>self.body,:id=>self.id}
+    {:item_type=>self.item_type,:body=>self.body,:id=>self.id}
   end
 
 end

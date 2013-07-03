@@ -23,7 +23,8 @@ class Api::PicturesController < Api::ApiController
   end
 
   def like
-    @result = {:type=>@photo.like!,:success=>true,:like_count=>@photo.likes.count}
+    type = @photo.like!
+    @result = {:type=>type,:success=>true,:like_count=>@photo.likes.count}
   end
 
   def delete

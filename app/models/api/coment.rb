@@ -21,7 +21,8 @@ class Coment
       :id         => self.id,
       :created_at => self.created_at,
       :photo_id   => self.photo_id,
-      :fb_id      => self.app_user.fb_id
+      :fb_id      => self.app_user.fb_id,
+      :avatar  => self.app_user.avatar,
     }.merge(to_api_hash)
   end
 

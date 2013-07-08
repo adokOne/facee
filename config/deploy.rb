@@ -21,14 +21,14 @@ ssh_options[:forward_agent] = true;
 server "88.198.110.171", :app, :web, :db, :primary => true
 
 
-#after 'deploy:finalize_update', 'deploy:symlink_db'
-
+after 'deploy:finalize_update', 'deploy:symlink_db'
 namespace :deploy do
   desc "Symlinks the database.yml"
- # task :symlink_db, :roles => :app do
-    #run "ln -s #{shared_path}/config/database.yml #{latest_release}/config/database.yml"
+  task :symlink_db, :roles => :app do
+   run "ln -s #{shared_path}/config/database.yml #{latest_release}/config/database.yml"
+   #run "ln -nfs #{shared_path}/photos #{release_path}/public/photos"
    # run "ln -s #{shared_path}/log/production.log #{latest_release}/log/production.log"
- # end
+  end
 end
 
 desc "Create socket file symlink for nginx"

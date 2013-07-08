@@ -3,7 +3,7 @@ class Api::UserController < Api::ApiController
   before_filter :set_user , :only => [:user_info,:friend,:user]
 
   def list
-  	@result = ::AppUser.paginate(:per_page => Settings.app.users_limit, :page => params[:page]).map{|i| i.to_api_hash}
+  	@result = ::AppUser.paginate(:per_page => Settings.app.users_limit, :page => params[:page]).map(&:to_api_hash)
   end
 
 
@@ -33,15 +33,15 @@ class Api::UserController < Api::ApiController
   end
 
   def friends
-  	@result =  $current_user.friends.map{|u| u.to_api_hash}
+  	@result =  $current_user.friends.map(&:to_api_hash)
   end
 
   def followers
-  	@result = $current_user.followers.map{|u| u.to_api_hash}
+  	@result = $current_user.followers.map(&:to_api_hash)
   end
 
   def following
-  	@result = $current_user.following.map{|u| u.to_api_hash}
+  	@result = $current_user.following.map(&:to_api_hash)
   end
 
 

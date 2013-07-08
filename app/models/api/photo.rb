@@ -33,15 +33,13 @@ class Photo
 
 
   def like!
-    like = Like.where(:app_user_id=>$current_user.id).first
-    if !like.nil? && self.likes.include?(like)
-      self.likes.delete(like)
-      return 0
+    like = Like.where(:app_user_id=>$current_user.id,:photo_id=>self.id).first
+    unless like.nil? 
+      self.likes.delete(like) 
+      0
     else
-      like = Like.new
-      like.photo = self
-      like.save
-      return 1
+      Like.create(:photo_id=>self.id) 
+      1
     end
   end
 
@@ -54,7 +52,7 @@ class Photo
       :like_count     => self.likes.count,
       :comments_count => self.coments.count,
       :created_at     => self.created_at,
-      :description    => {:payed=>self.description_payed,:items=>self.descriptions.map{|des| des.to_api_hash}}
+      :description    => {:payed=>self.description_payed,:items=>self.descriptions.map(&:to_api_hash)}
     }
   end
 
@@ -70,8 +68,8 @@ class Photo
 
   def to_full_json
     {
-      :last_likes     => self.likes.limit(Settings.app.like_lim).map{|comm| comm.to_api_hash},
-      :comments       => self.coments.limit(Settings.app.com_lim).map{|comm| comm.to_api_hash},
+      :last_likes     => self.likes.limit(Settings.app.like_lim).map(&:to_api_hash),
+      :comments       => self.coments.limit(Settings.app.com_lim).map(&:to_api_hash),
     }.merge(to_json)
   end
 

@@ -19,12 +19,11 @@ class Api::PicturesController < Api::ApiController
   end
 
   def strim
-    @result = ::Photo.paginate(:per_page => Settings.app.photos_limit, :page => params[:page]).map{|photo| photo.to_strim}
+    @result = ::Photo.paginate(:per_page => Settings.app.photos_limit, :page => params[:page]).map(&:to_strim)
   end
 
   def like
-    type = @photo.like!
-    @result = {:type=>type,:success=>true,:like_count=>@photo.likes.count}
+    @result = {:type=> @photo.like!,:success=>true,:like_count=>@photo.likes.count}
   end
 
   def delete

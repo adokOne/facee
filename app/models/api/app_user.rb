@@ -63,8 +63,8 @@ class AppUser
 
   def to_full_api_hash
     {
-      :last_folowers     => self.followers.limit(Settings.app.folow_lim).map{|f| f.to_small_hash},
-      :last_freiends     => self.friends.limit(Settings.app.friend_lim).map{|f| f.to_small_hash},
+      :last_folowers     => self.followers.limit(Settings.app.folow_lim).map(&:to_small_hash),
+      :last_freiends     => self.friends.limit(Settings.app.friend_lim).map(&:to_small_hash),
       :avatar_bg         => self.avatar_bg
     }.merge(to_api_hash)
   end

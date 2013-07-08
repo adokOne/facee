@@ -4,7 +4,7 @@ class Api::CommentController < Api::ApiController
   before_filter :set_photo ,:except=> :delete
 
   def list
-  	@result = ::Coment.where(photo_id:@photo.id).paginate(:per_page => Settings.app.coments_limit, :page => params[:page]).map{|c| c.to_full_api_hash}
+  	@result = ::Coment.where(photo_id:@photo.id).paginate(:per_page => Settings.app.coments_limit, :page => params[:page]).map(&:to_full_api_hash)
   end
 
 

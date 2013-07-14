@@ -26,14 +26,14 @@
               %td Получение списка всех фото
               %td /pictures/strim
               %td DEFAULT [page=NUMBER]
-              %td [{"id":3,"photo":"http://www.facee.local/system/photos/4/3/medium.jpg","like_count":1,"comments_count":0,"created_at":"2013-06-07T08:02:47Z","description":{"payed":true,"items":{"body":"wrgerger","id":1}},"user_id":4,"avatar":"http://www.facee.local/system/avatars/4_bg_pic.jpg","name":"Саша Чернов","fb_id":"1768664556"}]
+              %td {total:5,items:[{"id":3,"photo":"http://www.facee.local/system/photos/4/3/medium.jpg","like_count":1,"comments_count":0,"created_at":"2013-06-07T08:02:47Z","description":{"payed":true,"items":{"body":"wrgerger","id":1}},"user_id":4,"avatar":"http://www.facee.local/system/avatars/4_bg_pic.jpg","name":"Саша Чернов","fb_id":"1768664556"}]}
               %td 
                 %a{:href=>"http://#{request.host}/api/pictures/strim?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556",:target=>"_blank"} Получить ответ
             %tr
               %td Получение списка своих фото
               %td /pictures/list
               %td DEFAULT [page=NUMBER] [full=1]
-              %td [{"id":3,"photo":"http://www.facee.local/system/photos/4/3/medium.jpg","like_count":1,"comments_count":0,"created_at":"2013-06-07T08:02:47Z","description":{"payed":true,"items":[{"body":"wrgerger","id":1},{"body":"ssssssssssss","id":2}]}}]
+              %td {total:2,items:[{"id":3,"photo":"http://www.facee.local/system/photos/4/3/medium.jpg","like_count":1,"comments_count":0,"created_at":"2013-06-07T08:02:47Z","description":{"payed":true,"items":[{"body":"wrgerger","id":1},{"body":"ssssssssssss","id":2}]}}]}
               %td 
                 %a{:href=>"http://#{request.host}/api/pictures/list?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556",:target=>"_blank"} Получить ответ
             %tr

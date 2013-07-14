@@ -14,7 +14,7 @@ class Photo
       :medium   => ['560x560',    :jpg],
       :large    => ['500x500>',   :jpg]
   }
-
+  default_scope order_by([:created_at, :desc])
   
 
   Paperclip.interpolates :app_user_id do |attachment, style|

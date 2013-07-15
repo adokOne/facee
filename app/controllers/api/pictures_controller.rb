@@ -3,7 +3,9 @@ class Api::PicturesController < Api::ApiController
   before_filter :set_photo ,:only=>[:delete,:info,:like,:set_attr,:pay]
 
   def list
-  	@result = {:total=>::Photo.count,:items=>::Photo.where(:app_user=>$current_user.id).paginate(:per_page => Settings.app.photos_limit, :page => params[:page]).map{|photo| params[:full].nil? ? photo.to_json : photo.to_full_json}}
+    total = ::Photo.where(:app_user=>$current_user.id).count
+    items = ::Photo.where(:app_user=>$current_user.id).paginate(:per_page => Settings.app.photos_limit, :page => params[:page]).map{|photo| params[:full].nil? ? photo.to_json : photo.to_full_json}
+  	@result = {:total=>total,:items=>items}
   end
 
   def info
@@ -19,7 +21,9 @@ class Api::PicturesController < Api::ApiController
   end
 
   def strim
-    @result = {:total=>::Photo.count,:items=>::Photo.paginate(:per_page => Settings.app.photos_limit, :page => params[:page]).map(&:to_strim)}
+    total = ::Photo.count
+    items = ::Photo.paginate(:per_page => Settings.app.photos_limit, :page => params[:page]).map(&:to_strim)
+    @result = {:total=>total,:items=>items}
   end
 
   def like

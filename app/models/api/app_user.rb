@@ -65,7 +65,9 @@ class AppUser
     {
       :last_folowers     => self.followers.limit(Settings.app.folow_lim).map(&:to_small_hash),
       :last_freiends     => self.friends.limit(Settings.app.friend_lim).map(&:to_small_hash),
-      :avatar_bg         => self.avatar_bg
+      :avatar_bg         => self.avatar_bg,
+      :following_count   => self.following.count,
+      :photos_count      => self.photos.count,
     }.merge(to_api_hash)
   end
 

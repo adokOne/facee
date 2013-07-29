@@ -37,11 +37,11 @@ class Api::UserController < Api::ApiController
   end
 
   def followers
-  	@result = $current_user.followers.map(&:to_api_hash)
+  	@result = {:total=>$current_user.followers.count,:items=>$current_user.followers.map(&:to_api_hash)}
   end
 
   def following
-  	@result = $current_user.following.map(&:to_api_hash)
+  	@result = {:total=>$current_user.following.count,:items=>$current_user.following.map(&:to_api_hash)}
   end
 
 

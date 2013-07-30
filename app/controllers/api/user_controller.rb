@@ -28,20 +28,23 @@ class Api::UserController < Api::ApiController
     following
   end
 
-  def friend
-  	$current_user.friend!(@user)
+  def edit
+    name = params[:name]
+    raise Api::Exception.new(14) if name.nil? || name.size > 5
+    $current_user.update_attribute(:name=>name)
+    @result = {:success=>true}
   end
-
-  def friends
-  	@result =  $current_user.friends.map(&:to_api_hash)
-  end
-
+  
   def followers
-  	@result = {:total=>$current_user.followers.count,:items=>$current_user.followers.map(&:to_api_hash)}
+    set_user unless params[:user_id].nil?
+    user = @user.nil? ? $current_user : @user
+    @result = {:total=>user.followers.count,:items=>user.followers.map(&:to_api_hash)}
   end
 
   def following
-  	@result = {:total=>$current_user.following.count,:items=>$current_user.following.map(&:to_api_hash)}
+    set_user unless params[:user_id].nil?
+    user = @user.nil? ? $current_user : @user
+    @result = {:total=>user.following.count,:items=>user.following.map(&:to_api_hash)}
   end
 
 

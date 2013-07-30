@@ -3,8 +3,10 @@ class Api::PicturesController < Api::ApiController
   before_filter :set_photo ,:only=>[:delete,:info,:like,:set_attr,:pay]
 
   def list
-    total = ::Photo.where(:app_user=>$current_user.id).count
-    items = ::Photo.where(:app_user=>$current_user.id).paginate(:per_page => Settings.app.photos_limit, :page => params[:page]).map{|photo| params[:full].nil? ? photo.to_json : photo.to_strim}
+    set_user unless params[:user_id].nil?
+    user = @user.nil? ? $current_user : @user
+    total = ::Photo.where(:app_user=>user.id).count
+    items = ::Photo.where(:app_user=>user.id).paginate(:per_page => Settings.app.photos_limit, :page => params[:page]).map{|photo| params[:full].nil? ? photo.to_json : photo.to_strim}
   	@result = {:total=>total,:items=>items}
   end
 
@@ -65,5 +67,12 @@ class Api::PicturesController < Api::ApiController
     @photo = ::Photo.where(id:id.to_i).first
     raise Api::Exception.new(3) if @photo.nil?
   end
+
+  def set_user
+    id = params[:user_id] || 0
+    @user = ::AppUser.where(id:id.to_i).first
+    raise Api::Exception.new(9) if @user.nil?
+  end
+
 
 end

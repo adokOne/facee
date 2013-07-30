@@ -1,6 +1,6 @@
 class Api::UserController < Api::ApiController
   
-  before_filter :set_user , :only => [:user_info,:friend,:user]
+  before_filter :set_user , :only => [:user_info,:friend,:user,:follow]
 
   def list
   	@result = ::AppUser.paginate(:per_page => Settings.app.users_limit, :page => params[:page]).map(&:to_api_hash)
@@ -34,7 +34,7 @@ class Api::UserController < Api::ApiController
     $current_user.update_attribute(:name=>name)
     @result = {:success=>true}
   end
-  
+
   def followers
     set_user unless params[:user_id].nil?
     user = @user.nil? ? $current_user : @user

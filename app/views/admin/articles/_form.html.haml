@@ -5,11 +5,11 @@
       = f.hidden_field :id
       .span12.field-box
         %label Тип
-        = f.select :item_type , options_for_select([["Голова",1],["Вуха",2],["Ніс",2]],@article.item_type.nil? ? 1 : @article.item_type) ,{} ,:class=>"span9" , :required=>true
+        = f.select :item_type , options_for_select(t("api.desc_types").invert,@article.item_type.nil? ? 1 : @article.item_type) ,{} ,:class=>"span9" , :required=>true
+      .span12.field-box
+        %label Период
+        = f.select :item_period , options_for_select(@periods,@article.item_period.nil? ? 0 : @article.item_period) ,{} ,:class=>"span9" , :required=>true
       - %w(ru en ua).each do |lang|
-        .span12.field-box
-          %label #{t("admin.articles.name")} #{lang}
-          = f.text_field "name_#{lang}", :class=>"span9" , :required=>true
         .span12.field-box
           %label #{t("admin.articles.desc")} #{lang}
           = f.text_field "body_#{lang}", :class=>"span9" , :required=>true 

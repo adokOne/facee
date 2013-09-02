@@ -49,7 +49,6 @@ class AppUser
       :gender          => self.gender,
       :last_activity   => self.last_activity,
       :followers_count => self.followers.count,
-      :friends_count   => self.friends.count
     }.merge(to_small_hash)
   end
 

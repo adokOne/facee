@@ -63,7 +63,7 @@ class Photo
       :avatar  => self.app_user.avatar,
       :name    => self.app_user.name,
       :fb_id   => self.app_user.fb_id,
-      :description    => {:payed=>self.description_payed,:items=>descriptions.first.nil? ? {} : descriptions.first.to_api_hash}
+      :description    => {:payed=>self.description_payed,:items=>descriptions.where(item_type:1).first.nil? ? {} : descriptions.where(item_type:1).first.to_api_hash}
     })
   end
 
@@ -84,7 +84,7 @@ class Photo
       to    = item.last.change(:year=>year)
       idx = k if b_day >= from && b_day < to
     end
-    Description.where(item_period:(idx - 1)).all
+    Description.where(item_period:(idx - 1))
   end
 
   private

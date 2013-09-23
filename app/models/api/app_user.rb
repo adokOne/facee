@@ -43,12 +43,12 @@ class AppUser
 
   def to_api_hash
     {
-      
-      :created_at      => self.created_at,
-      :fb_id           => self.fb_id,
-      :gender          => self.gender,
-      :last_activity   => self.last_activity,
-      :followers_count => self.followers.count,
+      :created_at        => self.created_at,
+      :fb_id             => self.fb_id,
+      :gender            => self.gender,
+      :last_activity     => self.last_activity,
+      :followers_count   => self.followers.count,
+      :in_following_list => $current_user != self && $current_user.following.include?(self)
     }.merge(to_small_hash)
   end
 

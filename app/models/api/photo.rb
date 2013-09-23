@@ -5,6 +5,7 @@ class Photo
   include Mongoid::Paperclip
   field          :app_user_id, :type => Moped::BSON::ObjectId
   field          :album_id   , :type => Moped::BSON::ObjectId
+  field          :bd         , :type => Integer
   field          :description_payed, :type  => Boolean, :default => false
   auto_increment :id 
 
@@ -26,10 +27,10 @@ class Photo
   has_many       :coments , :dependent => :destroy
   has_many       :likes,    :dependent => :destroy , :autosave => true
 
-  has_and_belongs_to_many :descriptions
+  #has_and_belongs_to_many :descriptions
 
-  before_save :check_album
-  before_save :set_user
+ # before_save :check_album
+ # before_save :set_user
 
 
   def like!
@@ -52,7 +53,7 @@ class Photo
       :like_count     => self.likes.count,
       :comments_count => self.coments.count,
       :created_at     => self.created_at,
-      :description    => {:payed=>self.description_payed,:items=>self.descriptions.map(&:to_api_hash)}
+      :description    => {:payed=>self.description_payed,:items=>descriptions.map(&:to_api_hash)}
     }
   end
 
@@ -62,7 +63,7 @@ class Photo
       :avatar  => self.app_user.avatar,
       :name    => self.app_user.name,
       :fb_id   => self.app_user.fb_id,
-      :description    => {:payed=>self.description_payed,:items=>self.descriptions.first.nil? ? {} : self.descriptions.first.to_api_hash}
+      :description    => {:payed=>self.description_payed,:items=>descriptions.first.nil? ? {} : descriptions.first.to_api_hash}
     })
   end
 
@@ -73,6 +74,18 @@ class Photo
     }.merge(to_json)
   end
 
+  def descriptions
+    data = Rails.cache.read("periods")
+    idx = 0
+    b_day   = Time.at(self.bd).to_date
+    year  = Time.at(self.bd).year
+    data.each_with_index do |item,k|
+      from  = item.first.change(:year=>year)
+      to    = item.last.change(:year=>year)
+      idx = k if b_day >= from && b_day < to
+    end
+    Description.where(item_period:(idx - 1)).all
+  end
 
   private
 

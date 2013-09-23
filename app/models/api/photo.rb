@@ -30,7 +30,7 @@ class Photo
   #has_and_belongs_to_many :descriptions
 
  # before_save :check_album
-  #before_save :set_user
+  before_save :set_user
 
 
   def like!
@@ -75,7 +75,7 @@ class Photo
   end
 
   def descriptions
-    data = Rails.cache.read("periods")
+    data = Description.generated_dates
     idx = 0
     b_day   = Time.at(self.bd).to_date
     year  = Time.at(self.bd).year

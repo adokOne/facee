@@ -5,7 +5,7 @@ class Photo
   include Mongoid::Paperclip
   field          :app_user_id, :type => Moped::BSON::ObjectId
   field          :album_id   , :type => Moped::BSON::ObjectId
-  field          :bd         , :type => Integer
+  field          :bd         , :type => Integer,  :default => Time.now.to_i
   field          :description_payed, :type  => Boolean, :default => false
   auto_increment :id 
 

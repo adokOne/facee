@@ -30,7 +30,7 @@ class Photo
   #has_and_belongs_to_many :descriptions
 
  # before_save :check_album
-  before_save :set_user
+  #before_save :set_user
 
 
   def like!

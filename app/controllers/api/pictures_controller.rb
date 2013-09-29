@@ -19,7 +19,8 @@ class Api::PicturesController < Api::ApiController
     picture = params[:photo].nil? ? (raise Api::Exception.new(8)) : params[:photo]
     @photo.picture = picture.tempfile
     @photo.save
-    params[:bd].nil? ? (raise Api::Exception.new(15)) : @photo.update_attribute(:b_day,params[:bd])
+    params[:bd].nil?     ? (raise Api::Exception.new(15)) : @photo.update_attribute(:b_day,params[:bd])
+    params[:gender].nil? ? (raise Api::Exception.new(16)) : @photo.update_attribute(:gender,params[:gender].to_i)
     info
   end
 

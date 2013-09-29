@@ -6,7 +6,8 @@ class Photo
   field          :app_user_id, :type => Moped::BSON::ObjectId
   field          :album_id   , :type => Moped::BSON::ObjectId
   field          :bd         , :type => Integer,  :default => Time.now.to_i
-  field          :description_payed, :type  => Boolean, :default => false
+  field          :description_payed, :type  => Boolean, :default => false,
+  field          :gender, :type => Integer,:default => 1
   auto_increment :id 
 
   has_mongoid_attached_file :picture, :path => "public/system/photos/:app_user_id/:id/:style.:extension",    :styles => {

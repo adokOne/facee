@@ -48,6 +48,7 @@ class AppUser
       :gender            => self.gender,
       :last_activity     => self.last_activity,
       :followers_count   => self.followers.count,
+      :photos_count      => self.photos.count,
       :in_following_list => $current_user != self && $current_user.following.include?(self)
     }.merge(to_small_hash)
   end
@@ -65,8 +66,7 @@ class AppUser
       :last_folowers     => self.followers.limit(Settings.app.folow_lim).map(&:to_small_hash),
       :last_freiends     => self.friends.limit(Settings.app.friend_lim).map(&:to_small_hash),
       :avatar_bg         => self.avatar_bg,
-      :following_count   => self.following.count,
-      :photos_count      => self.photos.count,
+      :following_count   => self.following.count
     }.merge(to_api_hash)
   end
 

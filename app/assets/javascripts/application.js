@@ -12,4 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require modernizr-2.6.2.min
+//= require plugins
+//= require main

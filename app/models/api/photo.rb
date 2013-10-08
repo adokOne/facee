@@ -64,6 +64,7 @@ class Photo
       :avatar  => self.app_user.avatar,
       :name    => self.app_user.name,
       :fb_id   => self.app_user.fb_id,
+      :like    => Like.where(:app_user_id=>$current_user.id,:photo_id=>self.id).first.nil?,
       :description    => {:payed=>self.description_payed,:items=>descriptions.where(item_type:1).first.nil? ? {} : descriptions.where(item_type:1).first.to_api_hash}
     })
   end

@@ -28,9 +28,7 @@ class Photo
   has_many       :coments , :dependent => :destroy
   has_many       :likes,    :dependent => :destroy , :autosave => true
 
-  #has_and_belongs_to_many :descriptions
 
- # before_save :check_album
   before_save :set_user
 
 
@@ -64,7 +62,7 @@ class Photo
       :avatar  => self.app_user.avatar,
       :name    => self.app_user.name,
       :fb_id   => self.app_user.fb_id,
-      :like    => Like.where(:app_user_id=>$current_user.id,:photo_id=>self.id).first.nil?,
+      :like    => !Like.where(:app_user_id=>$current_user.id,:photo_id=>self.id).first.nil?,
       :description    => {:payed=>self.description_payed,:items=>descriptions.where(item_type:1).first.nil? ? {} : descriptions.where(item_type:1).first.to_api_hash}
     })
   end

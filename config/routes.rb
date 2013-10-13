@@ -12,7 +12,7 @@ Facee::Application.routes.draw do
       end
     end
     namespace :pictures do 
-      %w(pay set_attr list info delete post like strim).each do |action|
+      %w(pay set_attr list info delete post like strim like_list).each do |action|
         match action , :via=>[:get,:post]
       end
     end

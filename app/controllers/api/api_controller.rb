@@ -8,7 +8,7 @@ class Api::ApiController < ApplicationController
   rescue_from ActionView::MissingTemplate,     :with => :send_response
   
   def routing_error
-    raise Api::Exception.new(11)
+    #raise Api::Exception.new(11)
   end
 
   protected

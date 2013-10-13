@@ -1,6 +1,6 @@
 class Api::PicturesController < Api::ApiController
 
-  before_filter :set_photo ,:only=>[:delete,:info,:like,:set_attr,:pay]
+  before_filter :set_photo ,:only=>[:delete,:info,:like,:set_attr,:pay,:like_list]
 
   def list
     set_user unless params[:user_id].nil?
@@ -28,6 +28,10 @@ class Api::PicturesController < Api::ApiController
     total = ::Photo.count
     items = ::Photo.paginate(:per_page => Settings.app.photos_limit, :page => params[:page]).map(&:to_strim)
     @result = {:total=>total,:items=>items}
+  end
+
+  def like_list
+    @result =  @photo.likes.map { |e|  e.app_user.nil? ? nil : e.app_user.to_api_hash }.compact
   end
 
   def like

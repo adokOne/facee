@@ -46,13 +46,14 @@ class Photo
  
 
   def to_json
+    descs = self.description_payed ? descriptions.all.map(&:to_api_hash) : descriptions.where(item_type:1).all.map(&:to_api_hash)
     {
       :id             => self.id,
       :photo          => "#{$request.protocol}#{$request.host}#{Settings.app.image_dir}#{self.app_user.id}/#{self.id}/#{Settings.app.image_name}#{Settings.app.image_ext}",
       :like_count     => self.likes.count,
       :comments_count => self.coments.count,
       :created_at     => self.created_at,
-      :description    => {:payed=>self.description_payed,:items=>descriptions.map(&:to_api_hash)}
+      :description    => {:payed=>self.description_payed,:items=>descs}
     }
   end
 
@@ -78,7 +79,7 @@ class Photo
     data = Description.generated_dates
     idx = 0
     b_day   = Time.at(self.bd).to_date
-    year  = Time.at(self.bd).year
+    year    = Time.at(self.bd).year
     data.each_with_index do |item,k|
       from  = item.first.change(:year=>year)
       to    = item.last.change(:year=>year)

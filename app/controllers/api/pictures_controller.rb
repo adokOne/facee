@@ -16,7 +16,7 @@ class Api::PicturesController < Api::ApiController
 
   def post
     @photo   = ::Photo.new
-    params[:bd].nil?     ? (@photo.delete ; raise Api::Exception.new(15)) : @photo.update_attribute(:b_day,params[:bd])
+    params[:bd].nil?     ? (@photo.delete ; raise Api::Exception.new(15)) : @photo.update_attribute(:bd,params[:bd].to_i)
     params[:gender].nil? ? (@photo.delete ; raise Api::Exception.new(16)) : @photo.update_attribute(:gender,params[:gender].to_i)
     picture = params[:photo].nil? ? (raise Api::Exception.new(8)) : params[:photo]
     @photo.picture = picture.tempfile

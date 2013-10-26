@@ -128,7 +128,7 @@ class Photo
         end
       end
       self.friend_id = u.id
-    elsif self.friend_type == 1 && $current_user.own_photos_count == 1 
+    elsif self.friend_type == 1 && !$current_user.nil? && $current_user.own_photos_count == 1 
       $current_user.update_attribute(:b_day,self.bd)
     end
   end

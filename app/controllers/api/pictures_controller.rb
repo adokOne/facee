@@ -16,9 +16,11 @@ class Api::PicturesController < Api::ApiController
 
   def post
     @photo   = ::Photo.new
-    params[:bd].nil?     ? (@photo.delete ; raise Api::Exception.new(15)) : @photo.update_attribute(:bd,params[:bd].to_i)
-    params[:gender].nil? ? (@photo.delete ; raise Api::Exception.new(16)) : @photo.update_attribute(:gender,params[:gender].to_i)
-    picture = params[:photo].nil? ? (raise Api::Exception.new(8)) : params[:photo]
+    params[:friend_type].nil?               ? (@photo.delete ; raise Api::Exception.new(17)) : @photo.update_attribute(:friend_type,params[:friend_type].to_i)
+    params[:friend_fb_id].nil?              ? (@photo.delete ; raise Api::Exception.new(18)) : @photo.update_attribute(:friend_fb_id,params[:friend_fb_id])
+    params[:bd].nil?     && !@photo.is_own  ? (@photo.delete ; raise Api::Exception.new(15)) : @photo.update_attribute(:bd,params[:bd].to_i)
+    params[:gender].nil? && !@photo.is_own  ? (@photo.delete ; raise Api::Exception.new(16)) : @photo.update_attribute(:gender,params[:gender].to_i)
+    picture = params[:photo].nil?           ? (@photo.delete ; raise Api::Exception.new(8))  : params[:photo]
     @photo.picture = picture.tempfile
     @photo.save
     @result = {:success=>true}

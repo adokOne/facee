@@ -8,6 +8,10 @@ class Photo
   field          :bd         , :type => Integer,  :default => Time.now.to_i
   field          :description_payed, :type  => Boolean, :default => false
   field          :gender, :type => Integer,:default => 1
+  field          :friend_type, :type => Integer,:default => 1
+  field          :friend_fb_id, :type => String, :default => ""
+  field          :friend_id, :type => Integer
+  
   auto_increment :id 
 
   has_mongoid_attached_file :picture, :path => "public/system/photos/:app_user_id/:id/:style.:extension",    :styles => {
@@ -30,6 +34,7 @@ class Photo
 
 
   before_save :set_user
+  before_save :set_friend
 
 
   def like!
@@ -43,6 +48,10 @@ class Photo
     end
   end
 
+  def name
+    self.friend_type == 1 ? $current_user.name : (self.friend_type == 2 ? self.friend.name : self.friend_fb_id)
+  end
+
  
 
   def to_json
@@ -53,7 +62,8 @@ class Photo
       :like_count     => self.likes.count,
       :comments_count => self.coments.count,
       :created_at     => self.created_at,
-      :description    => {:payed=>self.description_payed,:items=>descs}
+      :description    => {:payed=>self.description_payed,:items=>descs},
+      :name           => self.name
     }
   end
 
@@ -63,6 +73,7 @@ class Photo
       :avatar  => self.app_user.avatar,
       :name    => self.app_user.name,
       :fb_id   => self.app_user.fb_id,
+      :name    => self.name,
       :like    => !Like.where(:app_user_id=>$current_user.id,:photo_id=>self.id).first.nil?,
       :description    => {:payed=>self.description_payed,:items=>descriptions.where(item_type:1).first.nil? ? {} : descriptions.where(item_type:1).first.to_api_hash}
     })
@@ -88,6 +99,14 @@ class Photo
     Description.where(item_period:(idx - 1))
   end
 
+  def is_own
+    self.friend_type == 1 ? true : nil
+  end
+
+  def friend
+    AppUser.find(self.friend_id)
+  end
+
   private
 
   def check_album
@@ -99,6 +118,19 @@ class Photo
 
   def set_user
     self.app_user = $current_user
+  end
+
+  def set_friend
+    if self.friend_type == 2 && self.friend_fb_id.size > 0
+      u = AppUser.find_or_create_by(:fb_id=>self.friend_fb_id) do |user|
+        AppUser.user_data(self.friend_fb_id).each_pair do |key,value|
+          user[key] = value if AppUser.fields.keys.include? key
+        end
+      end
+      self.friend_id = u.id
+    elsif self.friend_type == 1 && $current_user.own_photos_count == 1 
+      $current_user.update_attribute(:b_day,self.bd)
+    end
   end
 
 end

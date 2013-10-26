@@ -4,12 +4,13 @@ class AppUser
 
   field :name, 	 	      type: String
   field :fb_id, 	      type: String
-  field :gender, 	      type: String
+  field :gender, 	      type: Integer, :default => 1
   field :locale, 	      type: String
   field :active, 	      type: Integer, :default => 1
   field :last_activity, type: DateTime
   field :id, 			      type: Integer
   field :avatar, 	      type: String
+  field :b_day,         type: String
   field :avatar_bg,     type: String
   field :key_id,        type: Moped::BSON::ObjectId
   auto_increment :id
@@ -40,6 +41,9 @@ class AppUser
     self[:key_id] = Key.first.id
   end
 
+  def own_photos_count
+    self.photos.map(&:is_own).compact.count 
+  end
 
   def to_api_hash
     {
@@ -95,17 +99,17 @@ class AppUser
 	  	@fb_id = fb_id
 	  	raise Api::Exception.new(1) if @fb_id.nil?
 	  	$current_user =  AppUser.find_or_create_by(:fb_id=>@fb_id) do |user|
-	  		user_data.each_pair do |key,value|
+	  		AppUser.user_data(@fb_id).each_pair do |key,value|
+          value = key == :gender ? value == "male" ? 1 : 0 : value
 	  			user[key] = value if AppUser.fields.keys.include? key
 	  		end
 	  	end
 	  end
+ 
 
-	  private 
-
-	  def user_data 
+	  def user_data id
 	  	uri  = Settings.facebook.url.graph.to_uri
-	  	data = uri[@fb_id].get.deserialise.with_indifferent_access
+	  	data = uri[id].get.deserialise.with_indifferent_access
 	  	if data.has_key? :error
 	  		raise Api::Exception.new(2) 
 	  	else

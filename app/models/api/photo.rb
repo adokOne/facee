@@ -49,7 +49,7 @@ class Photo
   end
 
   def name
-    self.friend_type == 1 ? $current_user.name : (self.friend_type == 2 ? self.friend.name : self.friend_fb_id)
+    self.friend_type == 1 ? self.app_user.name : (self.friend_type == 2 ? self.friend.name : self.friend_fb_id)
   end
 
  

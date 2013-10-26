@@ -63,6 +63,7 @@ class Photo
       :comments_count => self.coments.count,
       :created_at     => self.created_at,
       :description    => {:payed=>self.description_payed,:items=>descs},
+      :name    => self.app_user.name,
     }
   end
 
@@ -70,7 +71,6 @@ class Photo
     to_json.merge({
       :user_id => self.app_user.id,
       :avatar  => self.app_user.avatar,
-      :name    => self.app_user.name,
       :fb_id   => self.app_user.fb_id,
       :name    => self.name,
       :like    => !Like.where(:app_user_id=>$current_user.id,:photo_id=>self.id).first.nil?,

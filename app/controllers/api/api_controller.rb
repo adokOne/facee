@@ -4,7 +4,7 @@ class Api::ApiController < ApplicationController
   before_filter :create_result
   before_filter :authorize
 
-  rescue_from Api::Exception , NoMethodError , :with => :send_error
+  #rescue_from Api::Exception , NoMethodError , :with => :send_error
   rescue_from ActionView::MissingTemplate,     :with => :send_response
   
   def routing_error

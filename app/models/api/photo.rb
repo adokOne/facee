@@ -63,7 +63,6 @@ class Photo
       :comments_count => self.coments.count,
       :created_at     => self.created_at,
       :description    => {:payed=>self.description_payed,:items=>descs},
-      :name           => self.name
     }
   end
 
@@ -117,7 +116,7 @@ class Photo
   end
 
   def set_user
-    self.app_user = $current_user
+    self.app_user = $current_user unless $current_user.nil?
   end
 
   def set_friend

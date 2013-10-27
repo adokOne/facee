@@ -63,8 +63,8 @@ class Photo
       :comments_count => self.coments.count,
       :created_at     => self.created_at,
       :description    => {:payed=>self.description_payed,:items=>descs},
-      :name           => $current_user.name,
-      :persone_name   => self.app_user.name,
+      :name           => self.app_user.name,
+      :persone_name   => name,
     }
   end
 

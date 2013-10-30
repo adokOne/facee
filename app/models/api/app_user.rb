@@ -21,9 +21,6 @@ class AppUser
   has_many :albums,   :dependent => :destroy
   has_and_belongs_to_many :following, class_name: 'AppUser', inverse_of: :followers, autosave: true
   has_and_belongs_to_many :followers, class_name: 'AppUser', inverse_of: :following
-  has_and_belongs_to_many :friend, class_name: 'AppUser', inverse_of: :friends, autosave: true
-  has_and_belongs_to_many :friends, class_name: 'AppUser', inverse_of: :friend
-
 
 
   before_create :set_avatar
@@ -70,21 +67,9 @@ class AppUser
   def to_full_api_hash
     {
       :last_folowers     => self.followers.limit(Settings.app.folow_lim).map(&:to_small_hash),
-      :last_freiends     => self.friends.limit(Settings.app.friend_lim).map(&:to_small_hash),
       :avatar_bg         => self.avatar_bg,
       :following_count   => self.following.count
     }.merge(to_api_hash)
-  end
-
-
-  def friend!(user)
-    if self.id != user.id && !self.friend.include?(user)
-      self.friend << user
-    end
-  end
-
-  def unfriend!(user)
-    self.friends.delete(user)
   end
 
 

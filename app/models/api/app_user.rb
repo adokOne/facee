@@ -6,6 +6,7 @@ class AppUser
   field :fb_id, 	      type: String
   field :gender, 	      type: Integer, :default => 1
   field :locale, 	      type: String
+  field :email,         type: String,  :default => ""
   field :active, 	      type: Integer, :default => 1
   field :last_activity, type: DateTime
   field :id, 			      type: Integer

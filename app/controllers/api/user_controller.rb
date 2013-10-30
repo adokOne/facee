@@ -29,9 +29,11 @@ class Api::UserController < Api::ApiController
   end
 
   def edit
-    name = params[:name]
-    raise Api::Exception.new(14) if name.nil? || name.size > 5
-    $current_user.update_attribute(:name=>name)
+    attrs = {}
+    attrs.merge!(:name =>params[:name]) unless params[:name].nil?
+    attrs.merge!(:email=>params[:name]) unless params[:email].nil?
+    raise Api::Exception.new(14) unless attrs.keys.any?
+    $current_user.update_attribute(attrs)
     @result = {:success=>true}
   end
 

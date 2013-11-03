@@ -25,7 +25,7 @@ class Api::UserController < Api::ApiController
 
   def follow
   	$current_user.follow!(@user)
-    following
+    following(true)
   end
 
   def edit
@@ -43,9 +43,9 @@ class Api::UserController < Api::ApiController
     @result = {:total=>user.followers.count,:items=>user.followers.map(&:to_api_hash)}
   end
 
-  def following
-    set_user unless params[:user_id].nil?
-    user = @user.nil? ? $current_user : @user
+  def following(current_user = false)
+    set_user unless current_user && params[:user_id].nil?
+    user = current_user || @user.nil? ? $current_user : @user
     @result = {:total=>user.following.count,:items=>user.following.map(&:to_api_hash)}
   end
 

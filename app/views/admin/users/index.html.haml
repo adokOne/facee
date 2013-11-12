@@ -54,7 +54,7 @@
               %span.subtext 
                 = link_to "Faceebook" ,"https://www.facebook.com/#{user.fb_id}"
             %td=l(user.created_at.to_date,:format=>:long)
-            %td=l(user.last_activity.to_datetime,:format=>:long)
+            %td = user.last_activity.nil? ? "" : l(user.last_activity.to_datetime,:format=>:long)
             %td{:class=>"_user_active_#{user.active}"}=t("admin.users.active_#{user.active}")
             %td=user.photos.count
   .pagination.pull-right 

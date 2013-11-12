@@ -88,14 +88,18 @@ class Photo
   def descriptions
     data = Description.generated_dates
     idx = 0
-    b_day   = Time.at(self.bd).to_date
-    year    = Time.at(self.bd).year
+    b_day   = Time.at(self.b_day).to_date
+    year    = Time.at(self.b_day).year
     data.each_with_index do |item,k|
       from  = item.first.change(:year=>year)
       to    = item.last.change(:year=>year)
       idx = k if b_day >= from && b_day < to
     end
     Description.where(item_period:(idx - 1))
+  end
+
+  def b_day
+    self.friend_type == 2 ? self.friend.b_day : self.bd
   end
 
   def is_own

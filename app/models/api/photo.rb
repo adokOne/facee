@@ -95,7 +95,8 @@ class Photo
       to    = item.last.change(:year=>year)
       idx = k if b_day >= from && b_day < to
     end
-    Description.where(item_period:(idx - 1))
+    idx = idx == 0 ? 0 : idx - 1
+    Description.where(item_period:idx)
   end
 
   def b_day

@@ -99,7 +99,7 @@ class Photo
   end
 
   def b_day
-    self.friend_type == 2 ? self.friend.b_day : self.bd
+    self.friend_type == 2 ? self.friend.b_day.nil? ? 0 : self.friend.b_day : self.bd
   end
 
   def is_own

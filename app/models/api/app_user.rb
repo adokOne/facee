@@ -11,7 +11,7 @@ class AppUser
   field :last_activity, type: DateTime
   field :id, 			      type: Integer
   field :avatar, 	      type: String
-  field :b_day,         type: String
+  field :b_day,         type: String, :default => 0
   field :avatar_bg,     type: String
   field :key_id,        type: Moped::BSON::ObjectId
   auto_increment :id

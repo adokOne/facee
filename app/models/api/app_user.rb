@@ -60,7 +60,8 @@ class AppUser
       :id     => self.id,
       :name   => self.name,
       :avatar => self.avatar,
-      :email  => self.email
+      :email  => self.email,
+      :b_day  => self.b_day
     }
   end
 

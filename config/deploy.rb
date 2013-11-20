@@ -2,7 +2,7 @@ require "rvm/capistrano"
 require "bundler/capistrano"
 require "capistrano"
 set :application, "facee"
-set :repository,  "git://github.com/adokOne/facee.git"
+set :repository,  "ssh://git@193.84.22.30:4623:adok/facee.git"
 set :user, "root"
 set :use_sudo, false
 

@@ -32,8 +32,10 @@ class Api::UserController < Api::ApiController
     attrs = {}
     attrs.merge!(:name =>params[:name]) unless params[:name].nil?
     attrs.merge!(:email=>params[:name]) unless params[:email].nil?
+    p attrs.keys
+    p "*"*100
     raise Api::Exception.new(14) unless attrs.keys.any?
-    $current_user.update_attribute(attrs)
+    $current_user.update_attributes(attrs)
     @result = {:success=>true}
   end
 

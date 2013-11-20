@@ -2,7 +2,7 @@ Facee::Application.routes.draw do
   
   namespace :api do
     namespace :user do 
-      %w(authorize list info user_info follow friend friends followers following upload_avatar).each do |action|
+      %w(authorize list info user_info follow friend friends followers following upload_avatar edit).each do |action|
         match action , :via=>[:get,:post]
       end
     end

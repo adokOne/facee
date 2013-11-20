@@ -6,7 +6,7 @@ set :repository,  "ssh://git@193.84.22.30:4623/adok/facee.git"
 set :user, "root"
 set :use_sudo, false 
 
-set :deploy_via, :remote_cache
+set :deploy_via, :export
 set :scm, :git
 set :branch, 'master'
 set :scm_verbose, true

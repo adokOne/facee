@@ -1,6 +1,8 @@
 class Api::UserController < Api::ApiController
   
   before_filter :set_user , :only => [:user_info,:friend,:user,:follow]
+  before_filter :set_fb_user , :only => [:user_fb_info]
+
 
   def list
   	@result = ::AppUser.paginate(:per_page => Settings.app.users_limit, :page => params[:page]).map(&:to_api_hash)
@@ -13,6 +15,10 @@ class Api::UserController < Api::ApiController
 
   def user_info
   	@result = params[:full] ?  @user.to_full_api_hash :  @user.to_api_hash
+  end
+
+  def user_fb_info
+    @result = params[:full] ?  @user.to_full_api_hash :  @user.to_api_hash
   end
 
   def upload_avatar
@@ -57,6 +63,10 @@ class Api::UserController < Api::ApiController
     @user = ::AppUser.where(id:id.to_i).first
     raise Api::Exception.new(9) if @user.nil?
   end
-
+  def set_fb_user
+    id = params[:user_fb_id] || 0
+    @user = ::AppUser.where(fb_id:id).first
+    raise Api::Exception.new(9) if @user.nil?
+  end
 
 end

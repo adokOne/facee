@@ -44,7 +44,7 @@ class Api::UserController < Api::ApiController
   end
 
   def following(current_user = false)
-    set_user unless current_user
+    set_user if current_user
     user = current_user || @user.nil? ? $current_user : @user
     @result = {:total=>user.following.count,:items=>user.following.map(&:to_api_hash)}
   end

@@ -33,6 +33,14 @@ class Photo
     }
   end
 
+  def to_strim
+    {
+      :id             => self.id,
+      :photo          => "#{$request.protocol}#{$request.host}#{Settings.app.image_dir}#{self.app_user.id}/#{self.id}/#{Settings.app.image_name}#{Settings.app.image_ext}",
+      :created_at     => self.created_at,
+      :description    => descriptions.where(item_type:1).first.nil? ? {} : descriptions.where(item_type:1).first.to_api_hash
+    }
+  end
  
   def descriptions
     data = Description.generated_dates

@@ -4,10 +4,8 @@ class Api::PicturesController < Api::ApiController
   before_filter :authorize
 
   def list
-    set_user unless params[:user_id].nil?
-    user = @user.nil? ? $current_user : @user
-    total = ::Photo.where(:app_user=>user.id).count
-    items = ::Photo.where(:app_user=>user.id).paginate(:per_page => Settings.app.photos_limit, :page => params[:page]).map(&:to_json)
+    total = ::Photo.where(:app_user=>$current_user.id).count
+    items = ::Photo.where(:app_user=>$current_user.id).paginate(:per_page => Settings.app.photos_limit, :page => params[:page]).map(&:to_strim)
   	@result = {:total=>total,:items=>items}
   end
 

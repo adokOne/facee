@@ -45,7 +45,7 @@ class Photo
   end
  
   def descriptions
-    data = Description.generated_dates
+    data = Description.with(database: "facee_production").generated_dates
     idx = 0
     b_day   = Time.at(self.bd).to_date
     year    = Time.at(self.bd).year

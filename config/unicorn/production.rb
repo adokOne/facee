@@ -1,5 +1,5 @@
 # Set your full path to application.
-app_path = ENV['RAILS_ROOT'] || "/var/www/facee/current"
+app_path = ENV['RAILS_ROOT'] || "/var/www/facee_min/current"
 
 # Set unicorn options
 worker_processes 3

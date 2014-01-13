@@ -1,14 +1,14 @@
 require "rvm/capistrano"
 require "bundler/capistrano"
 require "capistrano"
-set :application, "facee"
-set :repository,  "ssh://git@193.84.22.30:4623/adok/facee.git"
+set :application, "facee_min"
+set :repository,  "git@github.com:adokOne/facee.git"
 set :user, "root"
 set :use_sudo, false 
 
 set :deploy_via, :export
 set :scm, :git
-set :branch, 'master'
+set :branch, 'minimal'
 set :scm_verbose, true
 set :deploy_to, "/var/www/#{application}"
 

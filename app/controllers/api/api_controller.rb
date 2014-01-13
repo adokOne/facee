@@ -2,7 +2,7 @@ class Api::ApiController < ApplicationController
 
   before_filter :chek_access
   before_filter :create_result
-  before_filter :authorize
+  
 
   rescue_from Api::Exception , NoMethodError , :with => :send_error
   rescue_from ActionView::MissingTemplate,     :with => :send_response
@@ -17,11 +17,6 @@ class Api::ApiController < ApplicationController
     ::Key.find_by(secret:params[:key])
     rescue Mongoid::Errors::DocumentNotFound
       raise Api::Exception.new(10)
-  end
-
-  def authorize
-      ::AppUser.login(params[:fb_id])
-      $current_user.update_activity
   end
 
   def create_result

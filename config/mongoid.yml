@@ -5,7 +5,7 @@ production:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: facee_production
+      database: facee_production_minimal
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
@@ -73,7 +73,7 @@ development:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: facee_development
+      database: facee_development_minimal
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
@@ -137,7 +137,7 @@ development:
 test:
   sessions:
     default:
-      database: facee_test
+      database: facee_test_minimal
       hosts:
         - localhost:27017
       options:

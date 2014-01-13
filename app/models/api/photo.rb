@@ -58,9 +58,6 @@ class Photo
     Description.where(item_period:idx)
   end
 
-  def is_own
-    self.friend_type == 1 ? true : nil
-  end
 
   private
 

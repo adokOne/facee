@@ -4,6 +4,7 @@ class AppUser
 
   field :last_activity, type: DateTime
   field :id, 			      type: Integer
+  field :app_id,        type: String
   field :key_id,        type: Moped::BSON::ObjectId
   auto_increment :id
   belongs_to :key

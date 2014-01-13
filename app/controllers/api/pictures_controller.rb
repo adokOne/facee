@@ -1,7 +1,7 @@
 class Api::PicturesController < Api::ApiController
 
   
-  before_filter :authorize
+  
   before_filter :set_photo ,:only=>[:info]
 
   def list
@@ -24,11 +24,6 @@ class Api::PicturesController < Api::ApiController
   end
 
   private
-
-  def authorize
-      ::AppUser.login(params[:app_id])
-      $current_user.update_activity
-  end
   
   def set_photo
     id     = params[:photo_id] || 0

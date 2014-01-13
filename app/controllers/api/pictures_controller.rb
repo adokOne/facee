@@ -1,7 +1,8 @@
 class Api::PicturesController < Api::ApiController
 
-  before_filter :set_photo ,:only=>[:info]
+  
   before_filter :authorize
+  before_filter :set_photo ,:only=>[:info]
 
   def list
     total = ::Photo.where(:app_user=>$current_user.id).count

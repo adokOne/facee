@@ -4,7 +4,9 @@ class Photo
   include Mongoid::Timestamps::Created
   include Mongoid::Paperclip
   field          :app_user_id, :type => Moped::BSON::ObjectId
-  
+  field          :bd         , :type => Integer,  :default => Time.now.to_i
+
+
   auto_increment :id 
 
   has_mongoid_attached_file :picture, :path => "public/system/photos/:app_user_id/:id/:style.:extension",    :styles => {
@@ -45,8 +47,8 @@ class Photo
   def descriptions
     data = Description.generated_dates
     idx = 0
-    b_day   = Time.at(self.b_day).to_date
-    year    = Time.at(self.b_day).year
+    b_day   = Time.at(self.bd).to_date
+    year    = Time.at(self.bd).year
     data.each_with_index do |item,k|
       from  = item.first.change(:year=>year)
       to    = item.last.change(:year=>year)
@@ -61,7 +63,6 @@ class Photo
   end
 
   private
-
 
   def set_user
     self.app_user = $current_user unless $current_user.nil?

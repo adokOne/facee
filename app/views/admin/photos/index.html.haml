@@ -29,10 +29,7 @@
             %td
               = image_tag "#{request.protocol}#{request.host}#{Settings.app.image_dir}#{photo.app_user.id}/#{photo.id}/#{Settings.app.image_name}#{Settings.app.image_ext}" ,:class=>"img-circle avatar hidden-phone",:style=>"max-width: 80px;"
             %td
-              = photo.app_user.name
-              %br
-              %span.subtext 
-                = link_to "https://www.facebook.com/#{photo.app_user.fb_id}"
+              = photo.app_user.app_id
             %td=l(photo.created_at.to_datetime,:format=>:long)
             %td=photo.coments.count
             %td=photo.likes.count

@@ -17,12 +17,6 @@
           %th.span2.sortable
             %span.line
             = t("admin.photos.created_at") 
-          %th.span2.sortable
-            %span.line
-            = t("admin.photos.comments") 
-          %th.span2.sortable
-            %span.line
-            = t("admin.photos.likes") 
       %tbody
         - @photos.each_with_index do |photo,i|
           %tr{:class=>("active" if i == 0)}
@@ -31,8 +25,6 @@
             %td
               = photo.app_user.app_id
             %td=l(photo.created_at.to_datetime,:format=>:long)
-            %td=photo.coments.count
-            %td=photo.likes.count
 
   .pagination.pull-right 
     = will_paginate @photos         

@@ -10,9 +10,9 @@ class Photo
   auto_increment :id 
 
   has_mongoid_attached_file :picture, :path => "public/system/photos/:app_user_id/:id/:style.:extension",    :styles => {
-      :original => ['1920x1680>', :jpg],
+      # :original => ['1920x1680>', :jpg],
       # :small    => ['100x100#',   :jpg],
-      # :medium   => ['560x560',    :jpg],
+      :medium   => ['560x560',    :jpg],
       # :large    => ['500x500>',   :jpg]
   }
   default_scope order_by([:created_at, :desc])

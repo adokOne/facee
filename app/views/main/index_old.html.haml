@@ -9,7 +9,7 @@
           %h5 DEFAULT = key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=FB_ID
           %h5 [key=value] - Необязательные параметры
     - photo_id = Photo.last.nil? ? 0 : Photo.last.id
-    - comment_id = Coment.last.nil? ? 0 : Coment.last.id
+    -# comment_id = Coment.last.nil? ? 0 : Coment.last.id
     - user_id    = AppUser.last.nil? ? 0 : AppUser.last.id
     #pad-wrapper
       .row-fluid.table
@@ -81,7 +81,7 @@
               %td /comment/delete
               %td DEFAULT & comment_id=NUMBER
               %td {"success":true}
-              %td 
+              -#%td 
                 %a{:href=>"http://#{request.host}/api/comment/delete?key=45750cf87cb40fc9efe2ff0c9d8dd0a7&fb_id=1768664556&comment_id=#{comment_id}",:target=>"_blank"} Получить ответ
             %tr
               %td Получение списка комментов к фото

@@ -9,7 +9,7 @@ class Photo
 
   auto_increment :id 
 
-  has_mongoid_attached_file :picture, :path => "public/system/photos/:app_user_id/:id/:style.:extension"
+  has_mongoid_attached_file :picture, :path => "public/system/photos/:app_user_id/:id/:style.jpg"
   default_scope order_by([:created_at, :desc])
   
 

@@ -7,7 +7,7 @@ app:
   folow_lim: 2
   friend_lim: 2
   image_dir: /system/photos/
-  image_name: medium
+  image_name: original
   image_ext: .jpg
   photo_sizes:
     width: 200

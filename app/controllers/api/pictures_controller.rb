@@ -6,7 +6,7 @@ class Api::PicturesController < Api::ApiController
 
   def list
     total = ::Photo.where(:app_user=>$current_user.id).count
-    items = ::Photo.where(:app_user=>$current_user.id).paginate(:per_page => Settings.app.photos_limit, :page => params[:page]).map(&:to_strim)
+    items = ::Photo.where(:app_user=>$current_user.id).map(&:to_strim)
   	@result = {:total=>total,:items=>items}
   end
 

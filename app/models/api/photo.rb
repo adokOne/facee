@@ -9,12 +9,15 @@ class Photo
 
   auto_increment :id 
 
-  has_mongoid_attached_file :picture, :path => "public/system/photos/:app_user_id/:id/:style.jpg"
+  has_mongoid_attached_file :picture, :path => "public/system/photos/:app_user_id/:id/:style.:extension"
   default_scope order_by([:created_at, :desc])
   
 
   Paperclip.interpolates :app_user_id do |attachment, style|
     "#{attachment.instance.app_user_id}"
+  end
+  Paperclip.interpolates :extension do |attachment, style|
+    Settings.app.image_ext
   end
 
   belongs_to     :app_user

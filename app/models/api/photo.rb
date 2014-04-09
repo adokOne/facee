@@ -61,7 +61,7 @@ class Photo
     @keys = []
     @ranges.each_pair do |k,v|
       puts Time.at(self.bd).change(:year=>2012).to_datetime
-      puts v
+      puts k
       @keys = v if k.include_with_range?(Time.at(self.bd).change(:year=>2012).to_datetime)
     end
     idx = @keys.any? ? @keys.sample : 0

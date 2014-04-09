@@ -64,13 +64,6 @@ class Photo
     idx = @keys.any? ? @keys.sample : 0
     Description.where(item_period:idx)
   end
-
-  private
-
-  def set_user
-    self.app_user = $current_user unless $current_user.nil?
-  end
-
   def date_for(month, day)
     DateTime.new(2012, month, day)
   end
@@ -79,4 +72,11 @@ class Photo
     start, ending = date_for(month_start, day_start), date_for(month_end, day_end)
     Range.new(start.beginning_of_day, ending.end_of_day)
   end
+  private
+
+  def set_user
+    self.app_user = $current_user unless $current_user.nil?
+  end
+
+
 end

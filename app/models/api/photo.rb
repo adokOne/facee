@@ -60,11 +60,8 @@ class Photo
     }
     @keys = []
     @ranges.each_pair do |k,v|
-      puts Time.at(self.bd).change(:year=>2012).to_datetime
-      puts k
       @keys = v if k.include?(Time.at(self.bd).change(:year=>2012).to_i)
     end
-    p @keys
     idx = @keys.any? ? @keys.sample : 0
     Description.with(database: "facee_production").where(item_period:idx)
   end

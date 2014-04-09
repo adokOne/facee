@@ -23,7 +23,7 @@ class Photo
   belongs_to     :app_user
 
   before_save :set_user
-  RANGES = {
+  @ranges = {
     range_for(1,  1,  1,  20) => [0,1,2,3],
     range_for(1,  21, 2,  19) => [4,5,6,7],
     range_for(2,  20, 3,  20) => [8,9,10,11],

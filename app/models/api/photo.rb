@@ -23,21 +23,7 @@ class Photo
   belongs_to     :app_user
 
   before_save :set_user
-  @ranges = {
-    range_for(1,  1,  1,  20) => [0,1,2,3],
-    range_for(1,  21, 2,  19) => [4,5,6,7],
-    range_for(2,  20, 3,  20) => [8,9,10,11],
-    range_for(3,  21, 4,  20) => [12,13,14,15],
-    range_for(4,  21, 5,  21) => [16,17,18,19],
-    range_for(5,  22, 6,  21) => [20,21,22,23],
-    range_for(6,  22, 7,  22) => [24,25,26,27],
-    range_for(7,  23, 8,  21) => [28,29,30,31],
-    range_for(8,  22, 9,  23) => [32,33,34,35],
-    range_for(9,  24, 10, 23) => [36,37,38,39],
-    range_for(10, 24, 11, 22) => [40,41,42,43],
-    range_for(11, 23, 12, 22) => [44,45,46,47],
-    range_for(12, 23, 12, 31) => [48,49,50,51],
-  }
+
   def to_json
     {
       :id             => self.id,
@@ -57,8 +43,23 @@ class Photo
   end
  
   def descriptions
+    @ranges = {
+      self.range_for(1,  1,  1,  20) => [0,1,2,3],
+      self.range_for(1,  21, 2,  19) => [4,5,6,7],
+      self.range_for(2,  20, 3,  20) => [8,9,10,11],
+      self.range_for(3,  21, 4,  20) => [12,13,14,15],
+      self.range_for(4,  21, 5,  21) => [16,17,18,19],
+      self.range_for(5,  22, 6,  21) => [20,21,22,23],
+      self.range_for(6,  22, 7,  22) => [24,25,26,27],
+      self.range_for(7,  23, 8,  21) => [28,29,30,31],
+      self.range_for(8,  22, 9,  23) => [32,33,34,35],
+      self.range_for(9,  24, 10, 23) => [36,37,38,39],
+      self.range_for(10, 24, 11, 22) => [40,41,42,43],
+      self.range_for(11, 23, 12, 22) => [44,45,46,47],
+      self.range_for(12, 23, 12, 31) => [48,49,50,51],
+    }
     @keys = []
-    RANGES.each_pair do |k,v|
+    @ranges.each_pair do |k,v|
       @keys = v if k.include_with_range?(Time.at(self.bd).change(:year=>2012).to_datetime)
     end
     idx = @keys.any? ? @keys.sample : 0

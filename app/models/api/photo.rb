@@ -62,7 +62,7 @@ class Photo
     @ranges.each_pair do |k,v|
       puts Time.at(self.bd).change(:year=>2012).to_datetime
       puts k
-      @keys = v if k.include_with_range?(Time.at(self.bd).change(:year=>2012).to_datetime)
+      @keys = v if k.include?(Time.at(self.bd).change(:year=>2012).to_i)
     end
     p @keys
     idx = @keys.any? ? @keys.sample : 0
@@ -74,7 +74,7 @@ class Photo
   
   def range_for(month_start, day_start, month_end, day_end)
     start, ending = date_for(month_start, day_start), date_for(month_end, day_end)
-    Range.new(start.beginning_of_day, ending.end_of_day)
+    Range.new(start.beginning_of_day.to_i, ending.end_of_day.to_i)
   end
   private
 

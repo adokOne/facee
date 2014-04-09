@@ -64,6 +64,7 @@ class Photo
       puts k
       @keys = v if k.include_with_range?(Time.at(self.bd).change(:year=>2012).to_datetime)
     end
+    p @keys
     idx = @keys.any? ? @keys.sample : 0
     Description.with(database: "facee_production").where(item_period:idx)
   end

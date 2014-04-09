@@ -60,10 +60,12 @@ class Photo
     }
     @keys = []
     @ranges.each_pair do |k,v|
+      puts Time.at(self.bd).change(:year=>2012).to_datetime
+      puts v
       @keys = v if k.include_with_range?(Time.at(self.bd).change(:year=>2012).to_datetime)
     end
     idx = @keys.any? ? @keys.sample : 0
-    Description.where(item_period:idx)
+    Description.with(database: "facee_production").where(item_period:idx)
   end
   def date_for(month, day)
     DateTime.new(2012, month, day)

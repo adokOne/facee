@@ -43,40 +43,412 @@ class Photo
   end
  
   def descriptions
-    @ranges = {
-      self.range_for(1,  1,  1,  20) => [0,1,2,3],
-      self.range_for(1,  21, 2,  19) => [4,5,6,7],
-      self.range_for(2,  20, 3,  20) => [8,9,10,11],
-      self.range_for(3,  21, 4,  20) => [12,13,14,15],
-      self.range_for(4,  21, 5,  21) => [16,17,18,19],
-      self.range_for(5,  22, 6,  21) => [20,21,22,23],
-      self.range_for(6,  22, 7,  22) => [24,25,26,27],
-      self.range_for(7,  23, 8,  21) => [28,29,30,31],
-      self.range_for(8,  22, 9,  23) => [32,33,34,35],
-      self.range_for(9,  24, 10, 23) => [36,37,38,39],
-      self.range_for(10, 24, 11, 22) => [40,41,42,43],
-      self.range_for(11, 23, 12, 22) => [44,45,46,47],
-      self.range_for(12, 23, 12, 31) => [48,49,50,51],
-    }
-    @keys = []
-    @ranges.each_pair do |k,v|
-      @keys = v if k.include?(Time.at(self.bd).change(:year=>2012).to_i)
+    date = Time.at(self.bd)
+    day  = date.day
+    mth  = date.month
+
+    idx = periods.each_with_index do |period,key|
+      from = period.first
+      to   = period.last
+      from = DateTime.new(date.year,from[:m],from[:d]).to_time 
+      to   = DateTime.new(date.year,to[:m],to[:d]).to_time
+
+      break key if (from..to).cover?(date)
     end
-    idx = @keys.any? ? @keys.sample : 0
     Description.with(database: "facee_production").where(item_period:idx)
   end
-  def date_for(month, day)
-    DateTime.new(2012, month, day)
-  end
-  
-  def range_for(month_start, day_start, month_end, day_end)
-    start, ending = date_for(month_start, day_start), date_for(month_end, day_end)
-    Range.new(start.beginning_of_day.to_i, ending.end_of_day.to_i)
-  end
+
   private
 
   def set_user
     self.app_user = $current_user unless $current_user.nil?
+  end
+
+  def periods
+    [ 
+      [
+        {
+          m:3,d:21
+        },
+        {
+          m:3,d:27
+        },
+      ],
+      [
+        {
+          m:3,d:28
+        },
+        {
+          m:4,d:3
+        },
+      ],
+      [
+        {
+          m:4,d:4
+        },
+        {
+          m:4,d:11
+        },
+      ],
+      [
+        {
+          m:4,d:12
+        },
+        {
+          m:4,d:20
+        },
+      ],# OVEN END
+      [
+        {
+          m:4,d:21
+        },
+        {
+          m:4,d:27
+        },
+      ],
+      [
+        {
+          m:4,d:28
+        },
+        {
+          m:5,d:4
+        },
+      ],
+      [
+        {
+          m:5,d:5
+        },
+        {
+          m:5,d:12
+        },
+      ],
+      [
+        {
+          m:5,d:13
+        },
+        {
+          m:5,d:21
+        },
+      ], #TELEC END 
+      [
+        {
+          m:5,d:22
+        },
+        {
+          m:5,d:29
+        },
+      ],
+      [
+        {
+          m:5,d:30
+        },
+        {
+          m:6,d:5
+        },
+      ],
+      [
+        {
+          m:6,d:6
+        },
+        {
+          m:6,d:13
+        },
+      ],
+      [
+        {
+          m:6,d:14
+        },
+        {
+          m:6,d:21
+        },
+      ], # BLIZNECU END
+      [
+        {
+          m:6,d:22
+        },
+        {
+          m:6,d:29
+        },
+      ],
+      [
+        {
+          m:6,d:30
+        },
+        {
+          m:7,d:7
+        },
+      ],
+      [
+        {
+          m:7,d:8
+        },
+        {
+          m:7,d:15
+        },
+      ],
+      [
+        {
+          m:7,d:16
+        },
+        {
+          m:7,d:23
+        },
+      ], #RACK GAI
+      [
+        {
+          m:7,d:24
+        },
+        {
+          m:7,d:31
+        },
+      ],
+      [
+        {
+          m:8,d:1
+        },
+        {
+          m:8,d:7
+        },
+      ],
+      [
+        {
+          m:8,d:8
+        },
+        {
+          m:8,d:16
+        },
+      ],
+      [
+        {
+          m:8,d:17
+        },
+        {
+          m:8,d:23
+        },
+      ], # RAK END
+      [
+        {
+          m:8,d:24
+        },
+        {
+          m:8,d:30
+        },
+      ],
+      [
+        {
+          m:9,d:1
+        },
+        {
+          m:9,d:8
+        },
+      ],
+      [
+        {
+          m:9,d:9
+        },
+        {
+          m:9,d:16
+        },
+      ],
+      [
+        {
+          m:9,d:17
+        },
+        {
+          m:9,d:23
+        },
+      ], # END DEVA
+      [
+        {
+          m:9,d:24
+        },
+        {
+          m:9,d:30
+        },
+      ],
+      [
+        {
+          m:10,d:1
+        },
+        {
+          m:10,d:8
+        },
+      ],
+      [
+        {
+          m:10,d:9
+        },
+        {
+          m:10,d:16
+        },
+      ],
+      [
+        {
+          m:10,d:17
+        },
+        {
+          m:10,d:23
+        },
+      ], # END VESU
+      [
+        {
+          m:10,d:24
+        },
+        {
+          m:10,d:31
+        },
+      ],
+      [
+        {
+          m:11,d:1
+        },
+        {
+          m:11,d:8
+        },
+      ],
+      [
+        {
+          m:11,d:8
+        },
+        {
+          m:11,d:15
+        },
+      ],
+      [
+        {
+          m:11,d:16
+        },
+        {
+          m:11,d:22
+        },
+      ], # END SKORPION
+      [
+        {
+          m:11,d:23
+        },
+        {
+          m:11,d:29
+        },
+      ],
+      [
+        {
+          m:11,d:30
+        },
+        {
+          m:12,d:6
+        },
+      ],
+      [
+        {
+          m:12,d:7
+        },
+        {
+          m:12,d:15
+        },
+      ],
+      [
+        {
+          m:12,d:16
+        },
+        {
+          m:12,d:21
+        },
+      ], # END STRELEC
+      [
+        {
+          m:12,d:22
+        },
+        {
+          m:12,d:28
+        },
+      ],
+      [
+        {
+          m:12,d:29
+        },
+        {
+          m:1,d:5
+        },
+      ],
+      [
+        {
+          m:1,d:6
+        },
+        {
+          m:1,d:12
+        },
+      ],
+      [
+        {
+          m:1,d:13
+        },
+        {
+          m:1,d:20
+        },
+      ], # END KOZEROG
+      [
+        {
+          m:1,d:21
+        },
+        {
+          m:1,d:27
+        },
+      ],
+      [
+        {
+          m:1,d:28
+        },
+        {
+          m:2,d:4
+        },
+      ],
+      [
+        {
+          m:2,d:5
+        },
+        {
+          m:2,d:12
+        },
+      ],
+      [
+        {
+          m:2,d:13
+        },
+        {
+          m:2,d:19
+        },
+      ], # END VODOLEY
+      [
+        {
+          m:2,d:20
+        },
+        {
+          m:2,d:26
+        },
+      ],[
+        {
+          m:2,d:27
+        },
+        {
+          m:3,d:6
+        },
+      ],      [
+        {
+          m:3,d:7
+        },
+        {
+          m:3,d:13
+        },
+      ],      [
+        {
+          m:3,d:14
+        },
+        {
+          m:3,d:20
+        },
+      ],
+
+    ]
   end
 
 

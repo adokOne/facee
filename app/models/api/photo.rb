@@ -52,7 +52,10 @@ class Photo
       to   = period.last
       from = DateTime.new(date.year,from[:m],from[:d]).to_time 
       to   = DateTime.new(date.year,to[:m],to[:d]).to_time
-
+      if to < from 
+        date =  date.change(:year=>to.year + 1)
+        to   =  to.change(:year=>to.year + 1)
+      end
       break key if (from..to).cover?(date)
     end
     Description.with(database: "facee_production").where(item_period:idx)

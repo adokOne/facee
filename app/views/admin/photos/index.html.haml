@@ -16,6 +16,9 @@
             = t("admin.photos.user") 
           %th.span2.sortable
             %span.line
+            День рождения
+           %th.span2.sortable
+            %span.line
             = t("admin.photos.created_at") 
       %tbody
         - @photos.each_with_index do |photo,i|
@@ -24,6 +27,8 @@
               = image_tag "#{request.protocol}#{request.host}#{Settings.app.image_dir}#{photo.app_user.id}/#{photo.id}/#{Settings.app.image_name}#{Settings.app.image_ext}" ,:class=>"img-circle avatar hidden-phone",:style=>"max-width: 80px;"
             %td
               = photo.app_user.app_id
+            %td
+              = l(photo.bd,:format=>:long)
             %td=l(photo.created_at.to_datetime,:format=>:long)
 
   .pagination.pull-right 

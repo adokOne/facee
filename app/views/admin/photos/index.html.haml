@@ -28,7 +28,7 @@
             %td
               = photo.app_user.app_id
             %td
-              = l(photo.bd,:format=>:long)
+              = l(DateTime.strptime(photo.bd.to_s,'%s'),:format=>:long)
             %td=l(photo.created_at.to_datetime,:format=>:long)
 
   .pagination.pull-right 

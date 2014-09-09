@@ -34,7 +34,7 @@
               = l(DateTime.strptime(photo.bd.to_s,'%s'),:format=>:long)
             %td=l(photo.created_at.to_datetime,:format=>:long)
             %td
-              = photo.descriptions.to_s
+              = photo.descriptions.all.map(&:to_s).join("<br>").html_safe
   .pagination.pull-right 
     = will_paginate @photos         
 

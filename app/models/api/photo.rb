@@ -43,6 +43,7 @@ class Photo
   end
  
   def descriptions
+    (Date.new(2014, 12)..Date.new(2015, 12)).to_a.map(&:to_time).map(&:to_i).each do |bd|
     date = Time.at(self.bd)
     day  = date.day
     mth  = date.month
@@ -56,7 +57,7 @@ class Photo
         date =  date.change(:year=>to.year + 1)
         to   =  to.change(:year=>to.year + 1)
       end
-      break key if (from..to).cover?(date)
+      break key if (from.beginning_of_day..to.end_of_day).cover?(date)
     end
     Description.with(database: "facee_production").where(item_period:idx)
   end

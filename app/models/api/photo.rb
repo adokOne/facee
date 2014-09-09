@@ -43,7 +43,6 @@ class Photo
   end
  
   def descriptions
-    (Date.new(2014, 12)..Date.new(2015, 12)).to_a.map(&:to_time).map(&:to_i).each do |bd|
     date = Time.at(self.bd)
     day  = date.day
     mth  = date.month

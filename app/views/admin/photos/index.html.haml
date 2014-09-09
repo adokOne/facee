@@ -20,6 +20,9 @@
           %th.span2.sortable
             %span.line
             = t("admin.photos.created_at") 
+          %th.span2.sortable
+            %span.line
+            Описания
       %tbody
         - @photos.each_with_index do |photo,i|
           %tr{:class=>("active" if i == 0)}
@@ -30,7 +33,8 @@
             %td
               = l(DateTime.strptime(photo.bd.to_s,'%s'),:format=>:long)
             %td=l(photo.created_at.to_datetime,:format=>:long)
-
+            %td
+              = photo.descriptions.to_s
   .pagination.pull-right 
     = will_paginate @photos         
 

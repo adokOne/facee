@@ -22,11 +22,10 @@
             = t("admin.articles.desc") 
       %tbody
         - @characters.each_with_index do |item,i|
-          - first = [Description.generated_dates[item.item_period].first.day, I18n.t("date.month_names")[Description.generated_dates[item.item_period].first.month] ].join(" ")
-          - last  = [Description.generated_dates[item.item_period].last.day, I18n.t("date.month_names")[Description.generated_dates[item.item_period].last.month] ].join(" ")
+          -# Description.generated_dates[item.item_period]
           %tr{:class=>("active" if i == 0)}
             %td=t("api.desc_types.t_#{item.item_type}")
-            %td=link_to [ first, last ].join(" do ") , edit_admin_article_path(item.id) , :class=>"name"
+            %td=link_to Description.generated_dates[item.item_period] , edit_admin_article_path(item.id) , :class=>"name"
             %td=item.body
 
 

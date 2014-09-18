@@ -34,5 +34,6 @@ class Admin::ArticlesController < AdminController
 
 	def get_periods
 		@periods = Description.generated_dates
+		@periods.map!.with_index{|f,i| [f,i]}
 	end
 end

@@ -255,6 +255,7 @@ DEPENDENCIES
   mongoid-paperclip
   mongoid_auto_increment
   mysql2
+  nokogiri
   rails (= 3.2.13)
   rails_config
   rspec-rails (~> 2.0)

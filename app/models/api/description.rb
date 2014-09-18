@@ -28,6 +28,25 @@ class Description
     Description.periods.map{|per| per.map{|i|  DateTime.new(Time.now.year,i[:m],i[:d]).strftime("%d %b")}.join(" do ")}
   end
 
+  def self.import
+    i = 0
+    Hash.from_xml(File.read("#{Rails.root}/desc.xml").gsub("\n",""))["root"]["item"].in_groups_of(8).each do |item|
+      item.each do |g|
+        d = {
+          item_period:i,
+          item_type: g["type"].gsub("t_","").to_i,
+          body_en: g["text"].strip,
+          body_ru: g["text"].strip,
+          body_ua: g["text"].strip
+        }
+        p d
+        Description.create(d)
+      end
+      i+=1
+    end
+    
+  end
+
 
 
   def self.periods

@@ -16,6 +16,7 @@ gem 'mongoid_auto_increment'
 gem 'bson_ext'
 gem 'json'
 gem 'wrest'
+gem 'nokogiri'
 gem "rails_config"
 gem "mongoid-paperclip", :require => "mongoid_paperclip"
 gem 'aws-sdk', '~> 1.3.4'

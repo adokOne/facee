@@ -8,6 +8,10 @@ class Description
   field :body_en,   type: String , :default => ""
   field :item_type, type: Integer, :default =>  1  
   field :item_period, type: Integer
+  field :m_from, type: Integer
+  field :m_to, type: Integer
+  field :d_from, type: Integer
+  field :d_to, type: Integer
   auto_increment :id, :type => Moped::BSON::ObjectId
   has_and_belongs_to_many :photos
 
@@ -21,22 +25,524 @@ class Description
 
 
   def self.generated_dates
-    unless periods = Rails.cache.read("periods")
-      start_date = Date.new.at_beginning_of_year
-      end_date   = Date.new.at_beginning_of_year.next_year
-      periods = []
-      para = []
-      while start_date != end_date and start_date.year < end_date.year
-        para << start_date == Date.new.at_beginning_of_year ? start_date :  start_date - 1.day
-        if para.size == 2
-          periods << para
-          para = [para.last]
-        end
-        start_date += 7.day
-      end
-      Rails.cache.write("periods",periods,:expires_in=>5.month)
-    end
-    periods
+    Description.periods.map{|per| per.map{|i|  DateTime.new(Time.now.year,i[:m],i[:d]).strftime("%d %b")}.join(" do ")}
   end
+
+
+
+  def self.periods
+    [ 
+      [
+        {
+          m:3,d:21
+        },
+        {
+          m:3,d:26
+        },
+      ],
+      [
+        {
+          m:3,d:27
+        },
+        {
+          m:4,d:1
+        },
+      ],
+      [
+        {
+          m:4,d:2
+        },
+        {
+          m:4,d:7
+        },
+      ],
+      [
+        {
+          m:4,d:8
+        },
+        {
+          m:4,d:13
+        },
+      ],
+      [
+        {
+          m:4,d:14
+        },
+        {
+          m:4,d:20
+        },
+      ],
+
+      # OVEN END
+
+
+      [
+        {
+          m:4,d:21
+        },
+        {
+          m:4,d:26
+        },
+      ],
+      [
+        {
+          m:4,d:27
+        },
+        {
+          m:5,d:2
+        },
+      ],
+      [
+        {
+          m:5,d:3
+        },
+        {
+          m:5,d:8
+        },
+      ],
+      [
+        {
+          m:5,d:9
+        },
+        {
+          m:5,d:14
+        },
+      ], 
+      [
+        {
+          m:5,d:15
+        },
+        {
+          m:5,d:20
+        },
+      ], 
+      #TELEC END 
+
+      [
+        {
+          m:5,d:21
+        },
+        {
+          m:5,d:26
+        },
+      ],
+      [
+        {
+          m:5,d:27
+        },
+        {
+          m:6,d:1
+        },
+      ],
+      [
+        {
+          m:6,d:2
+        },
+        {
+          m:6,d:7
+        },
+      ],
+      [
+        {
+          m:6,d:8
+        },
+        {
+          m:6,d:13
+        },
+      ], 
+      [
+        {
+          m:6,d:14
+        },
+        {
+          m:6,d:21
+        },
+      ],
+
+      # BLIZNECU END
+      [
+        {
+          m:6,d:22
+        },
+        {
+          m:6,d:27
+        },
+      ],
+      [
+        {
+          m:6,d:28
+        },
+        {
+          m:7,d:3
+        },
+      ],
+      [
+        {
+          m:7,d:4
+        },
+        {
+          m:7,d:9
+        },
+      ],
+      [
+        {
+          m:7,d:10
+        },
+        {
+          m:7,d:15
+        },
+      ], 
+      [
+        {
+          m:7,d:16
+        },
+        {
+          m:7,d:22
+        },
+      ],
+
+
+      #RACK GAI
+      [
+        {
+          m:7,d:23
+        },
+        {
+          m:7,d:28
+        },
+      ],
+      [
+        {
+          m:8,d:29
+        },
+        {
+          m:8,d:3
+        },
+      ],
+      [
+        {
+          m:8,d:4
+        },
+        {
+          m:8,d:9
+        },
+      ],
+      [
+        {
+          m:8,d:10
+        },
+        {
+          m:8,d:15
+        },
+      ],
+      [
+        {
+          m:8,d:16
+        },
+        {
+          m:8,d:23
+        },
+      ],
+
+       # RAK END
+      [
+        {
+          m:8,d:24
+        },
+        {
+          m:8,d:29
+        },
+      ],
+      [
+        {
+          m:9,d:30
+        },
+        {
+          m:9,d:5
+        },
+      ],
+      [
+        {
+          m:9,d:6
+        },
+        {
+          m:9,d:11
+        },
+      ],
+      [
+        {
+          m:9,d:12
+        },
+        {
+          m:9,d:17
+        },
+      ],
+      [
+        {
+          m:9,d:18
+        },
+        {
+          m:9,d:23
+        },
+      ],
+
+       # END DEVA
+      [
+        {
+          m:9,d:24
+        },
+        {
+          m:9,d:29
+        },
+      ],
+      [
+        {
+          m:9,d:30
+        },
+        {
+          m:10,d:6
+        },
+      ],
+      [
+        {
+          m:10,d:7
+        },
+        {
+          m:10,d:12
+        },
+      ],
+      [
+        {
+          m:10,d:13
+        },
+        {
+          m:10,d:18
+        },
+      ],
+      [
+        {
+          m:10,d:19
+        },
+        {
+          m:10,d:23
+        },
+      ],
+      # END VESU
+      [
+        {
+          m:10,d:24
+        },
+        {
+          m:10,d:29
+        },
+      ],
+      [
+        {
+          m:11,d:30
+        },
+        {
+          m:11,d:4
+        },
+      ],
+      [
+        {
+          m:11,d:5
+        },
+        {
+          m:11,d:10
+        },
+      ],
+      [
+        {
+          m:11,d:11
+        },
+        {
+          m:11,d:16
+        },
+      ],
+      [
+        {
+          m:11,d:17
+        },
+        {
+          m:11,d:22
+        },
+      ],
+
+
+       # END SKORPION
+      [
+        {
+          m:11,d:23
+        },
+        {
+          m:11,d:28
+        },
+      ],
+      [
+        {
+          m:11,d:29
+        },
+        {
+          m:12,d:4
+        },
+      ],
+      [
+        {
+          m:12,d:5
+        },
+        {
+          m:12,d:10
+        },
+      ],
+      [
+        {
+          m:12,d:11
+        },
+        {
+          m:12,d:16
+        },
+      ], 
+      [
+        {
+          m:12,d:17
+        },
+        {
+          m:12,d:21
+        },
+      ], 
+
+
+      # END STRELEC
+      [
+        {
+          m:12,d:22
+        },
+        {
+          m:12,d:27
+        },
+      ],
+      [
+        {
+          m:12,d:28
+        },
+        {
+          m:1,d:2
+        },
+      ],
+      [
+        {
+          m:1,d:3
+        },
+        {
+          m:1,d:7
+        },
+      ],
+      [
+        {
+          m:1,d:8
+        },
+        {
+          m:1,d:13
+        },
+      ],
+      [
+        {
+          m:1,d:14
+        },
+        {
+          m:1,d:20
+        },
+      ],
+
+       # END KOZEROG
+      [
+        {
+          m:1,d:21
+        },
+        {
+          m:1,d:26
+        },
+      ],
+      [
+        {
+          m:1,d:27
+        },
+        {
+          m:2,d:1
+        },
+      ],
+      [
+        {
+          m:2,d:2
+        },
+        {
+          m:2,d:7
+        },
+      ],
+      [
+        {
+          m:2,d:8
+        },
+        {
+          m:2,d:13
+        },
+      ],
+      [
+        {
+          m:2,d:14
+        },
+        {
+          m:2,d:20
+        },
+      ],
+
+       # END VODOLEY
+      [
+        {
+          m:2,d:21
+        },
+        {
+          m:2,d:25
+        },
+      ],
+      [
+        {
+          m:2,d:26
+        },
+        {
+          m:3,d:3
+        },
+      ],
+      [
+        {
+          m:3,d:4
+        },
+        {
+          m:3,d:9
+        },
+      ],
+      [
+        {
+          m:3,d:10
+        },
+        {
+          m:3,d:15
+        },
+      ],
+      [
+        {
+          m:3,d:16
+        },
+        {
+          m:3,d:20
+        },
+      ],
+    ]
+  end
+
+
+
+
 
 end

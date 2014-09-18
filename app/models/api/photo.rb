@@ -58,7 +58,7 @@ class Photo
       end
       break key if (from.beginning_of_day..to.end_of_day).cover?(date)
     end
-    Description.with(database: "facee_production").where(item_period:idx)
+    Description.where(item_period:idx)
   end
 
   private

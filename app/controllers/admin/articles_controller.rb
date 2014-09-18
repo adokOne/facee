@@ -3,29 +3,29 @@ class Admin::ArticlesController < AdminController
 	def index
 		per_page = 10
 		type = params[:type] || 1
-		@characters = Description.with(database: "facee_production").where(:item_type=>type).order_by("item_period ASC").paginate(:per_page=>per_page,:page => params[:page])
+		@characters = Description.where(:item_type=>type).order_by("item_period ASC").paginate(:per_page=>per_page,:page => params[:page])
 	end
 
 	def new
 		get_periods
-		@article = Description.with(database: "facee_production").new
+		@article = Description.new
 	end
 
 	def edit
 		get_periods
-		@article = Description.with(database: "facee_production").find(params[:id].to_i)
+		@article = Description.find(params[:id].to_i)
 	end
 
 	def create
 		params[:article][:item_type].gsub!("t_",'')
-		@article = Description.with(database: "facee_production").new(params[:article])
+		@article = Description.new(params[:article])
 		@article.save
 		redirect_to admin_articles_path
 	end
 	def update
 		params[:article][:item_type].gsub!("t_",'')
 		id = params[:article].delete(:id)
-		@article = Description.with(database: "facee_production").find(id.to_i)
+		@article = Description.find(id.to_i)
 		@article.update_attributes params[:article]
 		redirect_to admin_articles_path
 	end
@@ -33,11 +33,6 @@ class Admin::ArticlesController < AdminController
 	private
 
 	def get_periods
-		@periods = []
-		 Description.with(database: "facee_production").generated_dates.size.times do |g| 
-			first = [Description.with(database: "facee_production").generated_dates[g].first.day, I18n.t("date.month_names")[Description.generated_dates[g].first.month] ].join(" ")
-			last  = [Description.with(database: "facee_production").generated_dates[g].last.day, I18n.t("date.month_names")[Description.generated_dates[g].last.month] ].join(" ")
-			@periods << [[ first, last ].join(" do ") , g]
-		end
+		@periods = Description.generated_dates
 	end
 end

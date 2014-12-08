@@ -29,7 +29,7 @@
         .wrapper
           %ul.nav_menu
             %li
-              = link_to t("all.home"),"#"
+              = link_to t("all.home"),"/"
             / %li
             /   %a{:href => ""} Features
             / %li
@@ -42,7 +42,7 @@
             /   %a{:href => ""} About
             / %li
             /   %a{:href => ""} Contact
-          %a.logo
+          = link_to "","/" ,:class=>"logo"
       = yield
       .clear
       #empty

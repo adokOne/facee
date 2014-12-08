@@ -32,6 +32,7 @@ Facee::Application.routes.draw do
 
 
   root :to => 'main#index'
+  get "item/:id", to:  'main#item'
   match "doc" , to:  'main#index_old'
   match '*a',   :to => 'api/api#routing_error'
 

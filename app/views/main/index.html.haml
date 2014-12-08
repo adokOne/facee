@@ -1,0 +1,126 @@
+.the_person
+  .wrapper
+    = image_tag "img_bun_mob.png"
+    .describe_person
+      %h1
+        Узнай все о человеке
+        %br/
+        по фотографии
+      %p
+        Мы поможем узнать всю правду о скрытых чертах
+        %br>/
+        характера любого, попавшего в ваш объектив
+      %ul.mob_link
+        %li
+          %a.app_store{:href => ""}
+        / %li
+        /   %a.and_roid{:href => ""}
+.cat_har_person
+  .wrapper
+    %h5 Lorem ipsum dolor
+    %p
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+      %br/
+      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+    %ul.har_per
+      - 1.upto(3) do |i|
+        %li
+          = image_tag "img_har_per#{i}.png"
+.ask_que
+  .wrapper
+    %h5 Frequently asked questions
+    %p
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+      %br/
+      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+    %ul.accord
+      %li.acc_ord
+        %a.ac_cord.des{:href => ""} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+        .acc_ord_in Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+      %li.acc_ord
+        %a.ac_cord.des{:href => ""} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+        .acc_ord_in
+      %li.acc_ord
+        %a.ac_cord.des{:href => ""} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+        .acc_ord_in
+      %li.acc_ord
+        %a.ac_cord.des{:href => ""} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+        .acc_ord_in
+.download_now
+  .wrapper
+    %h5 Download it now
+    %p
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+      %br/
+      ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+    %ul.mob_link
+      %li
+        %a.app_store{:href => ""}
+      / %li
+      /   %a.and_roid{:href => ""}
+.testimon
+  .wrapper
+    %h5 Testimonials
+    %p
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+      %br/
+      ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+    %span Lorem ipsum, dolor sit amet
+    %ul.quote
+      %li
+        %span
+      %li
+        %span
+    %ul.thumb
+      - 0.upto(3) do |i|
+        %li
+          = image_tag "img_thumb1.png"
+.about_team
+  .wrapper
+    %h5 About our team
+    %p
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+      %br/
+      ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+    -1.upto(3) do |i|
+      .about_team_in
+        = image_tag "img_about_team1.png"
+        %h6 John Doe
+        %p
+          Lorem ipsum dolor sit amet, consectetur
+          %br/
+          adipiscing elit, sed do
+        %ul.soc_link
+          %li
+            %a.fb{:href => "#"}
+          %li
+            %a.in{:href => "#"}
+          %li
+            %a.tw{:href => "#"}
+.contact_us
+  .wrapper
+    %h5=t("all.contact_us")
+    %p
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+      %br/
+      ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+    .send_mes
+      = form_for @feedback, :url => "/send_feedback" do |f|
+        %legend Send us a message
+        %p
+          = f.email_field :email, :placeholder => t("all.email"), :required=>true
+        %p
+          = f.text_field :subject, :placeholder => t("all.subject"), :required=>true
+        %p.p_t
+          = f.text_area :message,:wrap => "virtual"
+        %p
+          %input.but{:type => "submit", :value => t("all.send")}/
+    .cont_det
+      %h6 Contact details
+      %ul
+        %li
+          %a.map{:href => ""} ?
+        %li
+          %a.tel{:href => ""} ?
+        %li
+          %a.mail{:href => "mailto:?"} ?

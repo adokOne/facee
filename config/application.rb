@@ -59,6 +59,7 @@ module Facee
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
     config.active_record.whitelist_attributes = true
+    config.assets.paths << config.root.join("app", "assets", "fonts")
     config.assets.enabled = true
     config.assets.precompile += ['admin.css']
     config.assets.version = '1.0'

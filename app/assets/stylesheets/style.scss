@@ -821,3 +821,27 @@ a {
     }
   }
 }
+
+.photo_block {
+  width: 374px;
+  height: 700px;
+  padding: 108px 54px 0 58px;
+  background: image-url("img_bun_mob.png") no-repeat;
+  box-sizing: border-box;
+}
+.photo_block img{
+  float: none;
+  width: 262px;
+  height: 232px;
+  margin-bottom: 12px;
+}
+.photo_block p {
+  height: 80px;
+  padding: 0 10px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #898989;
+  font-family: Sergoe UI, Arial, Helvetica, sans-serif;
+  text-align: center;
+  overflow: hidden;
+}

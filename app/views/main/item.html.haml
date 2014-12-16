@@ -1,7 +1,9 @@
 .the_person.per_web
   .wrapper
     .bunner
-      = image_tag "img_bun_mob.png"
+      .photo_block
+        %img{:src=>"#{request.protocol}#{request.host}#{Settings.app.image_dir}#{@photo.app_user.id}/#{@photo.id}/#{Settings.app.image_name}#{Settings.app.image_ext}"}
+        %p Мы поможем узнать всю правду о скритих чертах характера любого, попавшего в ваш обьектив
       %ul.soc_friend
         %li
           %a.s_fb{:href => ""}
@@ -21,6 +23,6 @@
             %span=item.body
       %ul.mob_link
         %li
-          %a.app_store{:href => ""}
+          %a.app_store{:href => "https://itunes.apple.com/BR/app/id898291756", :target=>"_blank"}
         / %li
         /   %a.and_roid{:href => ""}

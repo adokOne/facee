@@ -25,6 +25,7 @@ class Api::ApiController < ApplicationController
   end
 
   def create_result
+    I18n.locale = params[:lang] if params[:lang].present? && %w(ru en).include?(params[:lang])
     @result  = {}
   	$request = request
   end

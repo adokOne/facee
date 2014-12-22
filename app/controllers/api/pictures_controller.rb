@@ -14,6 +14,12 @@ class Api::PicturesController < Api::ApiController
     @result =  @photo.to_json
   end
 
+  def delete
+    is_own? ? @photo.delete : (raise Api::Exception.new(7))
+    FileUtils.rm_rf "#{Rails.root}/public/photos/#{$current_user.id}/#{@photo.id}"
+    @result = {:success=>true}
+  end
+
   def post
     @photo   = ::Photo.new
     params[:bd].nil?  ? (@photo.delete ; raise Api::Exception.new(15)) : @photo.update_attribute(:bd,params[:bd].to_i)
@@ -24,6 +30,10 @@ class Api::PicturesController < Api::ApiController
   end
 
   private
+
+  def is_own?
+    $current_user.photos.include? @photo
+  end
   
   def set_photo
     id     = params[:photo_id] || 0

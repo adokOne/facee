@@ -41,6 +41,10 @@ class Photo
       :description    => descriptions.where(item_type:1).first.nil? ? {} : descriptions.where(item_type:1).first.to_api_hash
     }
   end
+
+  def photo_url
+    "#{$request.protocol}#{$request.host}#{Settings.app.image_dir}#{self.app_user.id}/#{self.id}/#{Settings.app.image_name}#{Settings.app.image_ext}"
+  end
  
   def descriptions
     date = Time.at(self.bd)

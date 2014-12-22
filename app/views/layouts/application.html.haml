@@ -2,55 +2,51 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml"}
   %head
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
-    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
-      %title Phiz home
-      = stylesheet_link_tag "application", :media => "all"
-      = javascript_include_tag "application"
-      :javascript
-        $(document).ready(function(){
-          $(".ac_cord").each(function(){
-            $(this).click(function(){
-              if ($(this).hasClass("des")){
-                $(this).next().slideDown(300);
-                $(this).toggleClass("des");
-              }
-              else {
-                $(this).toggleClass("des");
-                $(this).next().slideUp(300);
-              }
-            return false;
-            });
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %title Phiz
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    :javascript
+      $(document).ready(function(){
+        $(".ac_cord").each(function(){
+          $(this).click(function(){
+            if ($(this).hasClass("des")){
+              $(this).next().slideDown(300);
+              $(this).toggleClass("des");
+            }
+            else {
+              $(this).toggleClass("des");
+              $(this).next().slideUp(300);
+            }
+          return false;
           });
-          
         });
+        
+      });
+    - @meta.each_pair do |k,v|
+      %meta{:property => k,:content=>v }
     %body
-    .page
-      .header
-        .wrapper
-          %ul.nav_menu
-            %li
-              = link_to t("all.home"),"/"
-            %li
-              %a{:href => ""} Как єто работает?
-            %li
-              %a{:href => ""} Характеристики
-            / %li
-            /   %a{:href => ""} Screenshots
-            / %li
-            /   %a{:href => ""} Faq
-            / %li
-            /   %a{:href => ""} About
-            %li
-              %a{:href => ""} Контакты
-          = link_to "","/" ,:class=>"logo"
-      = yield
-      .clear
-      #empty
-      .footer
-        .wrapper
-          .copy=t("all.copy")
-          %ul.fut_soc
-            %li
-              %a.f_b{:href => ""}
-            %li
-              %a.v_k{:href => ""}
+      .page
+        .header
+          .wrapper
+            %ul.nav_menu
+              %li
+                = link_to t("all.home"),"/"
+              %li
+                %a{:href => ""} Как єто работает?
+              %li
+                %a{:href => ""} Характеристики
+              %li
+                %a{:href => ""} Контакты
+            = link_to "","/" ,:class=>"logo"
+        = yield
+        .clear
+        #empty
+        .footer
+          .wrapper
+            .copy=t("all.copy")
+            %ul.fut_soc
+              %li
+                %a.f_b{:href => ""}
+              %li
+                %a.v_k{:href => ""}

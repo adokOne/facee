@@ -3,7 +3,7 @@ class Admin::ArticlesController < AdminController
 	def index
 		per_page = 10
 		type = params[:type] || 1
-		@characters = Description.with(database: "facee_production").where(:item_type=>type).order_by("item_period ASC").paginate(:per_page=>per_page,:page => params[:page])
+		@characters = Description.where(:item_type=>type).order_by("item_period ASC").paginate(:per_page=>per_page,:page => params[:page])
 	end
 
 	def new

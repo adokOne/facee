@@ -1,8 +1,8 @@
 class Description
 
   include Mongoid::Document
-  #store_in database: "facee_production"
-
+  store_in database: "facee_production"
+  with(database: "facee_production")
   field :body_ru,   type: String , :default => ""
   field :body_ua,   type: String , :default => ""
   field :body_en,   type: String , :default => ""

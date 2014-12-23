@@ -26,7 +26,7 @@
           - last  = [Description.generated_dates[item.item_period].last.day, I18n.t("date.month_names")[Description.generated_dates[item.item_period].last.month] ].join(" ")
           %tr{:class=>("active" if i == 0)}
             %td=t("api.desc_types.t_#{item.item_type}")
-            %td=link_to [ first, last ].join(" do ") , edit_admin_article_path(item.id) , :class=>"name"
+            %td=link_to [ first, last ].join(" do ") , edit_admin_article_path(item._id) , :class=>"name"
             %td=item.body
 
 

@@ -2,7 +2,7 @@ class Api::PicturesController < Api::ApiController
 
   
   
-  before_filter :set_photo ,:only=>[:info]
+  before_filter :set_photo ,:only=>[:info,:delete]
 
   def list
     total = ::Photo.where(:app_user=>$current_user.id).count
